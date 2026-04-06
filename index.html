@@ -31,7 +31,6 @@
         * { box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
 
-        /* Idiomas */
         .lang-container { position: absolute; top: 15px; right: 20px; display: flex; gap: 8px; background: var(--white); padding: 6px 12px; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); z-index: 100; }
         .lang-btn { font-size: 11px; font-weight: 700; color: var(--text-muted); cursor: pointer; padding: 2px 4px; }
         .lang-btn.active { color: var(--primary); border-bottom: 2px solid var(--accent); }
@@ -46,7 +45,7 @@
         .section-container { margin-bottom: 30px; width: 100%; }
         .section-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; text-transform: uppercase; }
 
-        /* GRID CORREGIDO: 2 columnas en móvil, 3-5 en escritorio */
+        /* GRID: 2 columnas en móvil */
         .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 768px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
@@ -63,7 +62,6 @@
         .icon { font-size: 24px; margin-bottom: 8px; }
         h3 { margin: 0; font-size: 12.5px; font-weight: 600; line-height: 1.2; }
 
-        /* Footer */
         .footer-buttons { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         .footer-link {
             font-size: 12px; color: var(--primary); padding: 10px 18px; border: 1px solid #d1d9e6; 
@@ -72,7 +70,6 @@
         }
         .footer-icon-ego { width: 16px; height: 16px; }
 
-        /* Optimizador */
         .drop-zone { border: 2px dashed #cbd5e1; padding: 50px 20px; border-radius: 20px; background: #fafafa; cursor: pointer; }
         .btn-back { background: none; border: 1.5px solid var(--primary); padding: 8px 16px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
     </style>
@@ -148,7 +145,7 @@
 
         <div class="footer-buttons">
             <a href="https://admin.egorealestate.com/egocore/forgotpassword" target="_blank" class="footer-link">
-                <span>🔐 Olvidé mi contraseña</span>
+                <span data-i18n="forgot_pass">🔐 Olvidé mi contraseña</span>
             </a>
             <div class="footer-link" onclick="handleFav()">
                 <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
@@ -156,7 +153,7 @@
             </div>
             <div class="footer-link" onclick="installApp()">
                 <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
-                <span data-i18n="btn_direct">Instalar Aplicación (Acceso Directo)</span>
+                <span data-i18n="btn_direct">Instalar Aplicación</span>
             </div>
         </div>
     </div>
@@ -177,12 +174,7 @@
 
     <script>
         let deferredPrompt;
-
-        // Captura el evento nativo de instalación
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
 
         async function installApp() {
             if (deferredPrompt) {
@@ -211,13 +203,14 @@
                 sec_3: "💬 3. Soporte",
                 card_10: "Email Soporte",
                 card_11: "Teléfono",
+                forgot_pass: "🔐 Olvidé mi contraseña",
                 btn_fav: "Guardar Favoritos",
                 btn_direct: "Instalar Aplicación",
                 btn_back: "← Volver",
                 opt_title: "📸 Optimiza tus fotos",
                 opt_drop: "Haz clic o arrastra fotos",
                 msg_manual: "Para instalar en el escritorio:\n1. Haz clic en el icono de 'Compartir' o 'Menú' del navegador.\n2. Selecciona 'Añadir a pantalla de inicio' o 'Instalar aplicación'.",
-                msg_fav: "Presiona Ctrl+D (o Cmd+D) para guardar este portal en tus favoritos."
+                msg_fav: "Presiona Ctrl+D para guardar este portal en tus favoritos."
             },
             en: {
                 main_title: "eGO CRM Welcome Center",
@@ -235,8 +228,9 @@
                 sec_3: "💬 3. Support",
                 card_10: "Support Email",
                 card_11: "Phone",
-                btn_fav: "Save Favorites",
-                btn_direct: "Install App",
+                forgot_pass: "🔐 Forgot Password",
+                btn_fav: "Add to Bookmarks",
+                btn_direct: "Install Application",
                 btn_back: "← Back",
                 opt_title: "📸 Photo Optimizer",
                 opt_drop: "Click or drag photos",
@@ -251,7 +245,7 @@
                 card_3: "Webinars",
                 card_4: "Gravações",
                 card_5: "Configurações",
-                sec_2: "⚡ 2. Uso do CRM",
+                sec_2: "⚡ 2. Uso del CRM",
                 card_6: "Criar utilizadores",
                 card_7: "Inserir imóveis",
                 card_8: "Otimizar fotos",
@@ -259,8 +253,9 @@
                 sec_3: "💬 3. Suporte",
                 card_10: "E-mail Suporte",
                 card_11: "Telefone",
-                btn_fav: "Favoritos",
-                btn_direct: "Instalar App",
+                forgot_pass: "🔐 Esqueci a senha",
+                btn_fav: "Guardar Favoritos",
+                btn_direct: "Instalar Aplicação",
                 btn_back: "← Voltar",
                 opt_title: "📸 Otimizar fotos",
                 opt_drop: "Arraste fotos ou clique",
@@ -281,7 +276,7 @@
             currentLang = lang;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                el.innerText = i18n[lang][key];
+                if (i18n[lang][key]) el.innerText = i18n[lang][key];
             });
             document.getElementById('link-2').href = links[lang].link2;
             document.getElementById('link-3').href = links[lang].link3;
@@ -298,7 +293,7 @@
         function showOptimizer() { document.getElementById('portal-page').style.display = 'none'; document.getElementById('optimizer-page').style.display = 'block'; }
         function showPortal() { document.getElementById('optimizer-page').style.display = 'none'; document.getElementById('portal-page').style.display = 'block'; }
 
-        // Optimizador
+        // Optimizador (JSZip)
         const fileInput = document.getElementById('files');
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
