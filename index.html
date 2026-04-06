@@ -5,15 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eGO CRM - Portal de Cliente</title>
     
-    <link rel="icon" type="image/png" href="https://i.imgur.com/vH0H7iL.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/xEnXVfs.png">
     
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="eGO Portal">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/vH0H7iL.png">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/xEnXVfs.png">
 
-    <link rel="manifest" href='data:application/manifest+json,{"name":"eGO CRM Portal","short_name":"eGO","start_url":".","display":"standalone","background_color":"#1a2b4c","theme_color":"#1a2b4c","icons":[{"src":"https://i.imgur.com/vH0H7iL.png","sizes":"192x192","type":"image/png"},{"src":"https://i.imgur.com/vH0H7iL.png","sizes":"512x512","type":"image/png"}]}'>
+    <link rel="manifest" href='data:application/manifest+json,{"name":"eGO CRM Portal","short_name":"eGO","start_url":".","display":"standalone","background_color":"#1a2b4c","theme_color":"#1a2b4c","icons":[{"src":"https://i.imgur.com/xEnXVfs.png","sizes":"192x192","type":"image/png"},{"src":"https://i.imgur.com/xEnXVfs.png","sizes":"512x512","type":"image/png"}]}'>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -45,7 +44,6 @@
         .section-container { margin-bottom: 30px; width: 100%; }
         .section-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; text-transform: uppercase; }
 
-        /* GRID: 2 columnas en móvil */
         .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 768px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
@@ -68,7 +66,7 @@
             border-radius: 50px; background: var(--white); text-decoration: none;
             display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600;
         }
-        .footer-icon-ego { width: 16px; height: 16px; }
+        .footer-icon-ego { width: 16px; height: 16px; border-radius: 3px; }
 
         .drop-zone { border: 2px dashed #cbd5e1; padding: 50px 20px; border-radius: 20px; background: #fafafa; cursor: pointer; }
         .btn-back { background: none; border: 1.5px solid var(--primary); padding: 8px 16px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
@@ -101,7 +99,7 @@
                     <div class="icon">📅</div><h3 data-i18n="card_3">Webinars</h3>
                 </a>
                 <a id="link-4" href="#" target="_blank" class="card">
-                    <div class="icon">🎥</div><h3 data-i18n="card_4">Formaciones</h3>
+                    <div class="icon">🎥</div><h3 data-i18n="card_4">Formaciones Grabadas</h3>
                 </a>
                 <a id="link-5" href="#" target="_blank" class="card">
                     <div class="icon">🏢</div><h3 data-i18n="card_5">Configura Empresa</h3>
@@ -119,7 +117,7 @@
                     <div class="icon">📤</div><h3 data-i18n="card_7">Subir inmueble</h3>
                 </a>
                 <div class="card" onclick="showOptimizer()" style="border: 1px dashed var(--accent); background: #f0f9ff;">
-                    <div class="icon">📸</div><h3 data-i18n="card_8">Optimiza fotos</h3>
+                    <div class="icon">📸</div><h3 data-i18n="card_8">Optimiza tus fotos para eGO CRM</h3>
                 </div>
                 <a id="link-9" href="#" target="_blank" class="card">
                     <div class="icon">📈</div><h3 data-i18n="card_9">Crea Oportunidad</h3>
@@ -148,11 +146,11 @@
                 <span data-i18n="forgot_pass">🔐 Olvidé mi contraseña</span>
             </a>
             <div class="footer-link" onclick="handleFav()">
-                <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
+                <img src="https://i.imgur.com/xEnXVfs.png" class="footer-icon-ego">
                 <span data-i18n="btn_fav">Guardar Favoritos</span>
             </div>
             <div class="footer-link" onclick="installApp()">
-                <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
+                <img src="https://i.imgur.com/xEnXVfs.png" class="footer-icon-ego">
                 <span data-i18n="btn_direct">Instalar Aplicación</span>
             </div>
         </div>
@@ -161,7 +159,7 @@
     <div id="optimizer-page">
         <button class="btn-back" onclick="showPortal()" data-i18n="btn_back">← Volver al Portal</button>
         <div style="background: white; padding: 30px; border-radius: 20px;">
-            <h2 data-i18n="opt_title">📸 Optimiza tus fotos</h2>
+            <h2 data-i18n="opt_title">📸 Optimiza tus fotos para eGO CRM</h2>
             <div class="drop-zone" onclick="document.getElementById('files').click()">
                 <p data-i18n="opt_drop">Arrastra fotos aquí o haz clic</p>
                 <input type="file" id="files" multiple accept="image/*" style="display:none;">
@@ -173,8 +171,18 @@
     <canvas id="canvas" style="display:none;"></canvas>
 
     <script>
+        // Registro de Service Worker para habilitar PWA real
+        if ('serviceWorker' in navigator) {
+            const swCode = 'self.addEventListener("fetch", (e) => {});';
+            const blob = new Blob([swCode], {type: 'text/javascript'});
+            navigator.serviceWorker.register(URL.createObjectURL(blob));
+        }
+
         let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
 
         async function installApp() {
             if (deferredPrompt) {
@@ -193,12 +201,12 @@
                 card_1: "Accede al CRM",
                 card_2: "Academia eGO",
                 card_3: "Webinars",
-                card_4: "Formaciones",
+                card_4: "Formaciones Grabadas",
                 card_5: "Configura Empresa",
                 sec_2: "⚡ 2. Uso del CRM",
                 card_6: "Crea usuarios",
                 card_7: "Subir inmueble",
-                card_8: "Optimiza fotos",
+                card_8: "Optimiza tus fotos para eGO CRM",
                 card_9: "Crea Oportunidad",
                 sec_3: "💬 3. Soporte",
                 card_10: "Email Soporte",
@@ -207,9 +215,9 @@
                 btn_fav: "Guardar Favoritos",
                 btn_direct: "Instalar Aplicación",
                 btn_back: "← Volver",
-                opt_title: "📸 Optimiza tus fotos",
+                opt_title: "📸 Optimiza tus fotos para eGO CRM",
                 opt_drop: "Haz clic o arrastra fotos",
-                msg_manual: "Para instalar en el escritorio:\n1. Haz clic en el icono de 'Compartir' o 'Menú' del navegador.\n2. Selecciona 'Añadir a pantalla de inicio' o 'Instalar aplicación'.",
+                msg_manual: "Para instalar el acceso directo:\n\n1. Abre el menú del navegador (3 puntos o compartir).\n2. Selecciona 'Instalar aplicación' o 'Añadir a pantalla de inicio'.",
                 msg_fav: "Presiona Ctrl+D para guardar este portal en tus favoritos."
             },
             en: {
@@ -218,23 +226,23 @@
                 card_1: "Access CRM",
                 card_2: "eGO Academy",
                 card_3: "Webinars",
-                card_4: "Training",
+                card_4: "Recorded Training",
                 card_5: "Company Setup",
                 sec_2: "⚡ 2. CRM Usage",
                 card_6: "Create users",
                 card_7: "Upload property",
-                card_8: "Optimize photos",
+                card_8: "Optimize photos for eGO CRM",
                 card_9: "Create Opportunity",
                 sec_3: "💬 3. Support",
                 card_10: "Support Email",
                 card_11: "Phone",
                 forgot_pass: "🔐 Forgot Password",
                 btn_fav: "Add to Bookmarks",
-                btn_direct: "Install Application",
+                btn_direct: "Install App",
                 btn_back: "← Back",
-                opt_title: "📸 Photo Optimizer",
+                opt_title: "📸 Optimize photos for eGO CRM",
                 opt_drop: "Click or drag photos",
-                msg_manual: "To install: \n1. Go to browser menu.\n2. Select 'Add to home screen' or 'Install app'.",
+                msg_manual: "To install shortcut:\n\n1. Open browser menu (3 dots or share).\n2. Select 'Install app' or 'Add to home screen'.",
                 msg_fav: "Press Ctrl+D to bookmark this portal."
             },
             pt: {
@@ -243,12 +251,12 @@
                 card_1: "Aceder ao CRM",
                 card_2: "Academia eGO",
                 card_3: "Webinars",
-                card_4: "Gravações",
+                card_4: "Gravações Formações",
                 card_5: "Configurações",
-                sec_2: "⚡ 2. Uso del CRM",
+                sec_2: "⚡ 2. Uso do CRM",
                 card_6: "Criar utilizadores",
                 card_7: "Inserir imóveis",
-                card_8: "Otimizar fotos",
+                card_8: "Otimizar fotos para o eGO CRM",
                 card_9: "Criar Oportunidade",
                 sec_3: "💬 3. Suporte",
                 card_10: "E-mail Suporte",
@@ -257,9 +265,9 @@
                 btn_fav: "Guardar Favoritos",
                 btn_direct: "Instalar Aplicação",
                 btn_back: "← Voltar",
-                opt_title: "📸 Otimizar fotos",
+                opt_title: "📸 Otimizar fotos para o eGO CRM",
                 opt_drop: "Arraste fotos ou clique",
-                msg_manual: "Para instalar: \n1. Vá ao menu do navegador.\n2. Selecione 'Adicionar ao ecrã principal'.",
+                msg_manual: "Para instalar atalho:\n\n1. Abra o menu do navegador (3 pontos ou partilhar).\n2. Selecione 'Instalar aplicação' ou 'Adicionar ao ecrã principal'.",
                 msg_fav: "Pressione Ctrl+D para guardar nos favoritos."
             }
         };
@@ -293,16 +301,20 @@
         function showOptimizer() { document.getElementById('portal-page').style.display = 'none'; document.getElementById('optimizer-page').style.display = 'block'; }
         function showPortal() { document.getElementById('optimizer-page').style.display = 'none'; document.getElementById('portal-page').style.display = 'block'; }
 
-        // Optimizador (JSZip)
+        // Optimizador
         const fileInput = document.getElementById('files');
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
         fileInput.addEventListener('change', async function(e) {
             const files = Array.from(e.target.files);
+            if(files.length === 0) return;
             const zip = new JSZip();
-            document.getElementById('status-msg').style.display = "block";
-            document.getElementById('status-msg').innerText = "Procesando...";
+            const statusMsg = document.getElementById('status-msg');
+            statusMsg.style.display = "block";
+            statusMsg.style.color = "#1a2b4c";
+            statusMsg.innerText = "Procesando fotos...";
+            
             for (let file of files) {
                 const data = await processFile(file);
                 zip.file(`${file.name.split('.')[0]}_ego.png`, data.split(',')[1], {base64: true});
@@ -310,8 +322,9 @@
             zip.generateAsync({type:"blob"}).then(c => {
                 const l = document.createElement('a');
                 l.href = URL.createObjectURL(c);
-                l.download = "fotos_ego.zip"; l.click();
-                document.getElementById('status-msg').innerText = "¡Listo!";
+                l.download = "fotos_ego_crm.zip"; l.click();
+                statusMsg.innerText = "¡Listo! Descarga completada.";
+                statusMsg.style.color = "#27ae60";
             });
         });
 
