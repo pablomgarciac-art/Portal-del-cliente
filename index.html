@@ -3,9 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Centro de Bienvenida eGO CRM</title>
+    <title>eGO CRM - Portal de Cliente</title>
+    
+    <link rel="icon" type="image/png" href="https://i.imgur.com/vH0H7iL.png">
+    
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="eGO Portal">
+    <link rel="apple-touch-icon" href="https://i.imgur.com/vH0H7iL.png">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --primary: #1a2b4c;
@@ -20,25 +28,34 @@
         * { box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             margin: 0;
-            padding: 40px 20px 80px 20px; /* Padding inferior extra para la firma */
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            position: relative; /* Para posicionar la firma */
         }
 
-        #portal-page, #optimizer-page {
-            width: 100%;
-            max-width: 980px;
-            transition: opacity 0.3s ease;
+        /* IDIOMAS */
+        .lang-container {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 8px;
+            background: var(--white);
+            padding: 6px 12px;
+            border-radius: 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            z-index: 100;
         }
-        #optimizer-page { display: none; text-align: center; opacity: 0; }
+        .lang-btn { font-size: 11px; font-weight: 700; color: var(--text-muted); cursor: pointer; padding: 2px 4px; }
+        .lang-btn.active { color: var(--primary); border-bottom: 2px solid var(--accent); }
+
+        #portal-page, #optimizer-page { width: 100%; max-width: 980px; }
+        #optimizer-page { display: none; text-align: center; }
 
         .main-header {
             background: var(--primary);
@@ -46,302 +63,322 @@
             padding: 40px;
             text-align: center;
             color: white;
-            margin-bottom: 50px;
-            box-shadow: 0 10px 30px rgba(26, 43, 76, 0.1);
+            margin-bottom: 35px;
         }
+        .logo-img { max-width: 220px; height: auto; margin-bottom: 20px; }
 
-        .logo-img { max-width: 150px; margin-bottom: 15px; }
-        h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
-
-        .section-container { 
-            margin-bottom: 65px; /* Más espacio entre bloques */
-        }
-
+        /* SECCIONES */
+        .section-container { margin-bottom: 35px; width: 100%; }
         .section-title {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--primary-light);
-            margin-bottom: 22px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 2px solid #cbd5e1;
-            padding-bottom: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            font-size: 15px; font-weight: 600; color: var(--primary);
+            margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .grid { display: grid; gap: 16px; }
-        
+        .grid { display: grid; gap: 14px; }
         @media (min-width: 600px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
             .grid-4 { grid-template-columns: repeat(4, 1fr); }
             .grid-3 { grid-template-columns: repeat(3, 1fr); }
         }
-        
-        @media (max-width: 599px) {
-            .grid { grid-template-columns: repeat(2, 1fr); }
-        }
 
         .card {
-            background: var(--white);
-            padding: 22px;
-            border-radius: 18px;
-            text-decoration: none;
-            color: var(--primary);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0,0,0,0.02);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 115px;
-            cursor: pointer;
+            background: var(--white); padding: 20px; border-radius: 16px;
+            text-decoration: none; color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.25s;
+            border: 1px solid rgba(0,0,0,0.03); text-align: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 110px;
         }
+        .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .icon { font-size: 28px; margin-bottom: 10px; }
+        h3 { margin: 0; font-size: 13px; font-weight: 600; }
 
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            box-shadow: 0 15px 25px rgba(0,0,0,0.07);
-        }
-
-        .icon { font-size: 30px; margin-bottom: 12px; }
-        h3 { margin: 0; font-size: 13px; font-weight: 600; line-height: 1.4; }
-        p { font-size: 11px; color: var(--text-muted); margin: 6px 0 0 0; }
-
-        .opt-container {
-            background: var(--white);
-            padding: 60px 40px;
-            border-radius: 28px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
-        }
-        
-        .drop-zone {
-            border: 2px dashed #cbd5e1;
-            padding: 80px 30px;
-            border-radius: 24px;
-            cursor: pointer;
-            transition: 0.2s;
+        /* BOTONES INFERIORES */
+        .footer-buttons {
             margin-top: 30px;
-            background: #fafafa;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
         }
-        
-        .drop-zone:hover { border-color: var(--accent); background: #f0f9ff; }
-        
-        .btn-back {
-            background: none;
-            border: 1.5px solid var(--primary);
-            color: var(--primary);
-            padding: 12px 24px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-bottom: 30px;
-            font-weight: 600;
-            font-size: 13px;
+        .footer-link {
+            font-size: 13px; color: var(--primary-light);
+            padding: 12px 20px; border: 1px solid #d1d9e6; border-radius: 50px;
+            background: var(--white); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 8px;
+            transition: 0.2s; cursor: pointer; font-weight: 500;
         }
-        .btn-back:hover { background: var(--primary); color: white; }
+        .footer-link:hover { background: #f8fafc; border-color: var(--accent); transform: translateY(-2px); }
+        .footer-icon-ego { width: 18px; height: 18px; border-radius: 3px; }
 
-        .forgot-link {
-            margin-top: 20px;
-            margin-bottom: 40px;
-            font-size: 14px;
-            color: var(--primary-light);
-            font-weight: 500;
-            text-decoration: none;
-            padding: 14px 28px;
-            border: 1px solid #d1d9e6;
-            border-radius: 50px;
-            background: var(--white);
-            display: inline-block;
-            transition: 0.2s;
-        }
-
-        .forgot-link:hover {
-            border-color: var(--accent);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.06);
-            transform: translateY(-2px);
-        }
-
-        #status-msg { font-size: 12px; font-weight: 600; color: #27ae60; margin-top: 20px; display: none; }
-        .icon-img { width: 30px; height: 30px; margin-bottom: 12px; }
-
-        /* FIRMA PABLO GARCÍA */
-        .signature {
-            position: fixed;
-            bottom: 15px;
-            right: 20px;
-            font-size: 11px;
-            color: var(--text-muted);
-            font-weight: 400;
-            opacity: 0.7;
-        }
+        /* OPTIMIZADOR */
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 70px 30px; border-radius: 20px; background: #fafafa; cursor: pointer; }
+        .btn-back { background: none; border: 1.5px solid var(--primary); padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
+    <div class="lang-container">
+        <span class="lang-btn active" onclick="setLanguage('es')">ES</span>
+        <span class="lang-btn" onclick="setLanguage('en')">EN</span>
+        <span class="lang-btn" onclick="setLanguage('pt')">PT</span>
+    </div>
+
     <div id="portal-page">
         <header class="main-header">
             <img src="https://i.imgur.com/kVfITDo.png" alt="eGO CRM Logo" class="logo-img">
-            <h1>Centro de Bienvenida eGO CRM</h1>
+            <h1 data-i18n="main_title">Centro de Bienvenida eGO CRM</h1>
         </header>
 
         <div class="section-container">
-            <div class="section-title">🚀 1. Primeros Pasos</div>
+            <div class="section-title"><span data-i18n="sec_1">🚀 1. Primeros Pasos</span></div>
             <div class="grid grid-5">
                 <a href="https://admin.egorealestate.com/egocore" target="_blank" class="card">
-                    <div class="icon">🔑</div>
-                    <h3>Accede al CRM para empezar</h3>
+                    <div class="icon">🔑</div><h3 data-i18n="card_1">Accede al CRM</h3>
                 </a>
-                <a href="https://wiki-es.egorealestate.com/login" target="_blank" class="card">
-                    <div class="icon">🎓</div>
-                    <h3>Academia eGO</h3>
+                <a id="link-2" href="#" target="_blank" class="card">
+                    <div class="icon">🎓</div><h3 data-i18n="card_2">Academia eGO</h3>
                 </a>
-                <a href="https://www.egorealestate.es/webinars" target="_blank" class="card">
-                    <div class="icon">📅</div>
-                    <h3>Webinars</h3>
+                <a id="link-3" href="#" target="_blank" class="card">
+                    <div class="icon">📅</div><h3 data-i18n="card_3">Webinars</h3>
                 </a>
-                <a href="https://wiki-es.egorealestate.com/grabaciones-formaciones/ego-real-estate" target="_blank" class="card">
-                    <div class="icon">🎥</div>
-                    <h3>Formaciones Grabadas</h3>
+                <a id="link-4" href="#" target="_blank" class="card">
+                    <div class="icon">🎥</div><h3 data-i18n="card_4">Formaciones</h3>
                 </a>
-                <a href="https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa" target="_blank" class="card">
-                    <div class="icon">🏢</div>
-                    <h3>Configura tu empresa</h3>
+                <a id="link-5" href="#" target="_blank" class="card">
+                    <div class="icon">🏢</div><h3 data-i18n="card_5">Configura Empresa</h3>
                 </a>
             </div>
         </div>
 
         <div class="section-container">
-            <div class="section-title">⚡ 2. Empieza a utilizar tu CRM</div>
+            <div class="section-title"><span data-i18n="sec_2">⚡ 2. Empieza a utilizar tu CRM</span></div>
             <div class="grid grid-4">
-                <a href="https://wiki-es.egorealestate.com/es/software/configuraciones/crear-usuarios" target="_blank" class="card">
-                    <div class="icon">👤➕</div>
-                    <h3>Crea usuarios para el CRM</h3>
+                <a id="link-6" href="#" target="_blank" class="card">
+                    <div class="icon">👤➕</div><h3 data-i18n="card_6">Crea usuarios</h3>
                 </a>
-                <a href="https://wiki-es.egorealestate.com/es/software/inmuebles/inmuebles/subir-inmuebles" target="_blank" class="card">
-                    <div class="icon">📤</div>
-                    <h3>¿Cómo subir un inmueble?</h3>
+                <a id="link-7" href="#" target="_blank" class="card">
+                    <div class="icon">📤</div><h3 data-i18n="card_7">Subir inmueble</h3>
                 </a>
-                <div class="card" onclick="showOptimizer()" style="border: 1.5px dashed var(--accent); background: #f0f9ff;">
-                    <div class="icon">📸</div>
-                    <h3>Optimiza tus fotos para el CRM</h3>
-                    <p>(Formato y resolución)</p>
+                <div class="card" onclick="showOptimizer()" style="border: 1px dashed var(--accent); background: #f0f9ff;">
+                    <div class="icon">📸</div><h3 data-i18n="card_8">Optimiza tus fotos</h3>
                 </div>
-                <a href="https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades" target="_blank" class="card">
-                    <div class="icon">📈</div>
-                    <h3>Crea tu Oportunidad</h3>
+                <a id="link-9" href="#" target="_blank" class="card">
+                    <div class="icon">📈</div><h3 data-i18n="card_9">Crea Oportunidad</h3>
                 </a>
             </div>
         </div>
 
         <div class="section-container">
-            <div class="section-title">💬 3. Soporte y Ayuda</div>
+            <div class="section-title"><span data-i18n="sec_3">💬 3. Soporte y Ayuda</span></div>
             <div class="grid grid-3">
                 <a href="mailto:support@egorealestate.com" class="card">
-                    <div class="icon">📩</div>
-                    <h3>Email Soporte</h3>
+                    <div class="icon">📩</div><h3 data-i18n="card_10">Email Soporte</h3>
                 </a>
-                <a href="tel:910380590" class="card">
-                    <div class="icon">📞</div>
-                    <h3>Teléfono</h3>
+                <a id="link-phone" href="tel:910380590" class="card">
+                    <div class="icon">📞</div><h3 data-i18n="card_11">Teléfono</h3>
                 </a>
                 <a href="https://wa.me/34650585692" target="_blank" class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" class="icon-img" alt="WhatsApp">
-                    <h3>WhatsApp</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:28px; margin-bottom:10px;" alt="WA"><h3>WhatsApp</h3>
                 </a>
             </div>
         </div>
 
-        <div style="text-align: center;">
-            <a href="https://admin.egorealestate.com/egocore/forgotpassword" target="_blank" class="forgot-link">
-                🔐 ¿Has olvidado la contraseña? Solicítala aquí
+        <div class="footer-buttons">
+            <a href="https://admin.egorealestate.com/egocore/forgotpassword" target="_blank" class="footer-link">
+                <span>🔐 Olvidé mi contraseña</span>
             </a>
+            <div class="footer-link" onclick="handleFav()">
+                <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
+                <span data-i18n="btn_fav">Guardar en Favoritos</span>
+            </div>
+            <div class="footer-link" id="btnInstall" onclick="installPWA()">
+                <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
+                <span data-i18n="btn_direct">Crear Acceso Directo</span>
+            </div>
         </div>
     </div>
 
     <div id="optimizer-page">
-        <button class="btn-back" onclick="showPortal()">← Volver al Portal</button>
-        <div class="opt-container">
-            <h2 style="color: var(--primary); margin-top:0; font-weight: 700; letter-spacing: -1px;">📸 Optimiza tus fotos para el CRM</h2>
-            <p style="color: var(--text-muted);">Ajuste automático a 1600x1200px y formato PNG.</p>
+        <button class="btn-back" onclick="showPortal()" data-i18n="btn_back">← Volver al Portal</button>
+        <div style="background: white; padding: 40px; border-radius: 20px;">
+            <h2 data-i18n="opt_title">📸 Optimiza tus fotos</h2>
             <div class="drop-zone" onclick="document.getElementById('files').click()">
-                <p style="font-size: 18px; font-weight: 600; color: var(--primary); margin: 0;">Arrastra tus fotos aquí</p>
-                <p style="color: var(--text-muted); margin-top: 8px;">O haz clic para seleccionar archivos</p>
-                <div id="status-msg">¡ZIP Generado con éxito!</div>
+                <p data-i18n="opt_drop">Arrastra tus fotos aquí o haz clic</p>
                 <input type="file" id="files" multiple accept="image/*" style="display:none;">
             </div>
+            <div id="status-msg" style="margin-top:20px; font-weight:600; color:#27ae60; display:none;"></div>
         </div>
     </div>
 
     <canvas id="canvas" style="display:none;"></canvas>
 
-    <div class="signature">Pablo García</div>
-
     <script>
-        function showOptimizer() {
-            const portal = document.getElementById('portal-page');
-            const optimizer = document.getElementById('optimizer-page');
-            portal.style.opacity = '0';
-            setTimeout(() => {
-                portal.style.display = 'none';
-                optimizer.style.display = 'block';
-                setTimeout(() => optimizer.style.opacity = '1', 50);
-            }, 300);
-            window.scrollTo(0, 0);
+        // Lógica de Instalación (PWA)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            // Opcional: mostrar botón solo cuando esté listo para instalar
+            document.getElementById('btnInstall').style.display = 'inline-flex';
+        });
+
+        async function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') deferredPrompt = null;
+            } else {
+                // Si no es compatible con instalación automática, damos el link directo
+                alert(i18n[currentLang].msg_shortcut_manual);
+                window.open("https://admin.egorealestate.com/", "_blank");
+            }
         }
 
-        function showPortal() {
-            const portal = document.getElementById('portal-page');
-            const optimizer = document.getElementById('optimizer-page');
-            optimizer.style.opacity = '0';
-            setTimeout(() => {
-                optimizer.style.display = 'none';
-                portal.style.display = 'block';
-                setTimeout(() => portal.style.opacity = '1', 50);
-            }, 300);
-            window.scrollTo(0, 0);
+        const i18n = {
+            es: {
+                main_title: "Centro de Bienvenida eGO CRM",
+                sec_1: "🚀 1. Primeros Pasos",
+                card_1: "Accede al CRM",
+                card_2: "Academia eGO",
+                card_3: "Webinars",
+                card_4: "Formaciones Grabadas",
+                card_5: "Configura Empresa",
+                sec_2: "⚡ 2. Uso del CRM",
+                card_6: "Crea usuarios",
+                card_7: "Subir inmueble",
+                card_8: "Optimiza tus fotos",
+                card_9: "Crea Oportunidad",
+                sec_3: "💬 3. Soporte",
+                card_10: "Email Soporte",
+                card_11: "Teléfono",
+                btn_fav: "Guardar en Favoritos",
+                btn_direct: "Crear Acceso Directo",
+                btn_back: "← Volver",
+                opt_title: "📸 Optimiza tus fotos",
+                opt_drop: "Haz clic o arrastra fotos",
+                msg_fav: "Para favoritos:\nPC: Ctrl+D\nMóvil: Menú Navegador > Añadir a marcadores",
+                msg_shortcut_manual: "Si no ves la opción de instalar:\n1. Ve al menú de tu navegador (3 puntos o compartir).\n2. Elige 'Añadir a pantalla de inicio'."
+            },
+            en: {
+                main_title: "eGO CRM Welcome Center",
+                sec_1: "🚀 1. First Steps",
+                card_1: "Access CRM",
+                card_2: "eGO Academy",
+                card_3: "Webinars",
+                card_4: "Recordings",
+                card_5: "Company Setup",
+                sec_2: "⚡ 2. CRM Usage",
+                card_6: "Create Users",
+                card_7: "Upload Property",
+                card_8: "Photo Optimizer",
+                card_9: "Create Opportunity",
+                sec_3: "💬 3. Support",
+                card_10: "Email Support",
+                card_11: "Phone",
+                btn_fav: "Add to Bookmarks",
+                btn_direct: "Create Shortcut",
+                btn_back: "← Back",
+                opt_title: "📸 Optimize Photos",
+                opt_drop: "Click or drag photos",
+                msg_fav: "For bookmarks:\nPC: Ctrl+D\nMobile: Browser Menu > Add to bookmarks",
+                msg_shortcut_manual: "If you don't see the install option:\n1. Go to browser menu.\n2. Choose 'Add to home screen'."
+            },
+            pt: {
+                main_title: "Centro de Boas-vindas eGO CRM",
+                sec_1: "🚀 1. Primeiros Passos",
+                card_1: "Aceder ao CRM",
+                card_2: "Academia eGO",
+                card_3: "Webinars",
+                card_4: "Gravações",
+                card_5: "Configurações",
+                sec_2: "⚡ 2. Uso do CRM",
+                card_6: "Criar utilizadores",
+                card_7: "Inserir imóveis",
+                card_8: "Otimizar fotos",
+                card_9: "Criar Oportunidade",
+                sec_3: "💬 3. Suporte",
+                card_10: "E-mail Suporte",
+                card_11: "Telefone",
+                btn_fav: "Favoritos",
+                btn_direct: "Criar Atalho",
+                btn_back: "← Voltar",
+                opt_title: "📸 Otimizar fotos",
+                opt_drop: "Arraste fotos ou clique",
+                msg_fav: "Favoritos:\nPC: Ctrl+D\nTelemóvel: Menu > Adicionar aos favoritos",
+                msg_shortcut_manual: "Se não vir a opção de instalar:\n1. Vá ao menu do navegador.\n2. Escolha 'Adicionar ao ecrã principal'."
+            }
+        };
+
+        const links = {
+            es: { link2: "https://wiki-es.egorealestate.com/login", link3: "https://www.egorealestate.es/webinars", link4: "https://wiki-es.egorealestate.com/grabaciones-formaciones/ego-real-estate", link5: "https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa", link6: "https://wiki-es.egorealestate.com/es/software/configuraciones/crear-usuarios", link7: "https://wiki-es.egorealestate.com/es/software/inmuebles/inmuebles/subir-inmuebles", link9: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", phone: "tel:910380590" },
+            en: { link2: "https://wiki-en.egorealestate.com/login", link3: "https://www.egorealestate.pt/en-gb/webinars", link4: "https://wiki-en.egorealestate.com/webinar-recordings", link5: "https://wiki-en.egorealestate.com/software/settings/company-data-settings", link6: "https://wiki-en.egorealestate.com/software/settings/add-new-ego-user", link7: "https://wiki-en.egorealestate.com/software/properties/properties/adding-a-new-property", link9: "https://wiki-en.egorealestate.com/software/opportunities/creating-opportunities", phone: "tel:+351262840464" },
+            pt: { link2: "https://wiki-pt.egorealestate.com/", link3: "https://www.egorealestate.pt/webinars", link4: "https://wiki-pt.egorealestate.com/webinares-gravacoes", link5: "https://wiki-pt.egorealestate.com/software/configuracoes/configuracoes-da-empresa", link6: "https://wiki-pt.egorealestate.com/software/configuracoes/como-criar-utilizadores", link7: "https://wiki-pt.egorealestate.com/software/imoveis/imoveis-a-vulso/inserir-imoveis", link9: "https://wiki-pt.egorealestate.com/software/oportunidades/criar-oportunidades", phone: "tel:+351262840464" }
+        };
+
+        let currentLang = 'es';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerText = i18n[lang][key];
+            });
+            document.getElementById('link-2').href = links[lang].link2;
+            document.getElementById('link-3').href = links[lang].link3;
+            document.getElementById('link-4').href = links[lang].link4;
+            document.getElementById('link-5').href = links[lang].link5;
+            document.getElementById('link-6').href = links[lang].link6;
+            document.getElementById('link-7').href = links[lang].link7;
+            document.getElementById('link-9').href = links[lang].link9;
+            document.getElementById('link-phone').href = links[lang].phone;
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.toggle('active', btn.innerText.toLowerCase() === lang));
         }
 
+        function handleFav() { alert(i18n[currentLang].msg_fav); }
+        function showOptimizer() { document.getElementById('portal-page').style.display = 'none'; document.getElementById('optimizer-page').style.display = 'block'; }
+        function showPortal() { document.getElementById('optimizer-page').style.display = 'none'; document.getElementById('portal-page').style.display = 'block'; }
+
+        // Optimizador
         const fileInput = document.getElementById('files');
-        const statusMsg = document.getElementById('status-msg');
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
         fileInput.addEventListener('change', async function(e) {
             const files = Array.from(e.target.files);
-            if (files.length === 0) return;
             const zip = new JSZip();
-            statusMsg.style.display = "block"; statusMsg.innerText = "Optimizando resolución...";
-            for (let i = 0; i < files.length; i++) {
-                const base64Data = await processFile(files[i]);
-                zip.file(`${files[i].name.split('.')[0]}_ego.png`, base64Data.split(',')[1], {base64: true});
+            document.getElementById('status-msg').style.display = "block";
+            document.getElementById('status-msg').innerText = "Procesando...";
+            for (let file of files) {
+                const data = await processFile(file);
+                zip.file(`${file.name.split('.')[0]}_ego.png`, data.split(',')[1], {base64: true});
             }
-            zip.generateAsync({type:"blob"}).then(function(content) {
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(content);
-                link.download = "fotos_ego.zip"; link.click();
-                statusMsg.innerText = "¡Listo! El archivo ZIP se ha descargado.";
+            zip.generateAsync({type:"blob"}).then(c => {
+                const l = document.createElement('a');
+                l.href = URL.createObjectURL(c);
+                l.download = "fotos_ego.zip"; l.click();
+                document.getElementById('status-msg').innerText = "¡Listo!";
             });
         });
 
         function processFile(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    const img = new Image();
-                    img.onload = () => {
+            return new Promise(r => {
+                const rd = new FileReader();
+                rd.onload = e => {
+                    const i = new Image();
+                    i.onload = () => {
                         canvas.width = 1600; canvas.height = 1200;
                         ctx.fillStyle = "white"; ctx.fillRect(0,0,1600,1200);
-                        ctx.drawImage(img, 0, 0, 1600, 1200);
-                        resolve(canvas.toDataURL('image/png'));
+                        ctx.drawImage(i, 0, 0, 1600, 1200);
+                        r(canvas.toDataURL('image/png'));
                     };
-                    img.src = e.target.result;
+                    i.src = e.target.result;
                 };
-                reader.readAsDataURL(file);
+                rd.readAsDataURL(file);
             });
         }
+        
+        window.onload = () => { setLanguage('es'); };
     </script>
 </body>
 </html>
