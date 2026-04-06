@@ -10,12 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="eGO Portal">
-    <link rel="apple-touch-icon" href="https://i.imgur.com/xEnXVfs.png">
-    <link rel="manifest" href='data:application/manifest+json,{"name":"eGO CRM Portal","short_name":"eGO","start_url":".","display":"standalone","background_color":"#1a2b4c","theme_color":"#1a2b4c","icons":[{"src":"https://i.imgur.com/xEnXVfs.png","sizes":"192x192","type":"image/png"},{"src":"https://i.imgur.com/xEnXVfs.png","sizes":"512x512","type":"image/png"}]}'>
-
     <style>
         :root {
             --primary: #1a2b4c;
@@ -36,6 +30,21 @@
             flex-direction: column; 
             align-items: center; 
             color: var(--text-main); 
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Marca de agua flotante */
+        .watermark {
+            position: fixed;
+            bottom: 15px;
+            right: 20px;
+            font-size: 12px;
+            color: #94a3b8;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 999;
+            font-weight: 400;
         }
 
         .lang-container { position: absolute; top: 15px; right: 20px; display: flex; gap: 8px; background: var(--white); padding: 6px 12px; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); z-index: 100; }
@@ -61,7 +70,6 @@
         .section-container { margin-bottom: 30px; width: 100%; }
         .section-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; text-transform: uppercase; }
 
-        /* Diseño 2 columnas en móvil */
         .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 768px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
@@ -78,20 +86,26 @@
         .icon { font-size: 26px; margin-bottom: 10px; }
         h3 { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.3; }
 
-        .footer-buttons { margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .footer-buttons { margin-top: 25px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; padding-bottom: 40px; }
         .footer-link {
             font-size: 12px; color: var(--primary); padding: 12px 22px; border: 1px solid #d1d9e6; 
             border-radius: 50px; background: var(--white); text-decoration: none;
             display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; transition: 0.2s;
         }
         .footer-link:hover { background: #f8fafc; border-color: var(--accent); }
-        .footer-icon-ego { width: 18px; height: 18px; }
+        .star-icon { font-size: 16px; line-height: 1; }
 
-        .drop-zone { border: 2px dashed #cbd5e1; padding: 50px 20px; border-radius: 20px; background: #fafafa; cursor: pointer; margin-top: 20px; }
+        /* Estilos Optimizador */
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 60px 20px; border-radius: 20px; background: #fafafa; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .drop-zone:hover { background: #f0f9ff; border-color: var(--accent); }
+        .opt-main-text { font-size: 20px; font-weight: 600; color: var(--primary); display: block; margin-bottom: 8px; }
+        .opt-sub-text { font-size: 13px; color: #64748b; font-weight: 400; }
         .btn-back { background: var(--white); border: 2px solid var(--primary); padding: 10px 24px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: 600; font-family: 'Poppins'; }
     </style>
 </head>
 <body>
+
+    <div class="watermark">Pablo García</div>
 
     <div class="lang-container">
         <span class="lang-btn active" onclick="setLanguage('es')">ES</span>
@@ -165,22 +179,19 @@
                 <span data-i18n="forgot_pass">🔐 Olvidé mi contraseña</span>
             </a>
             <div class="footer-link" onclick="handleFav()">
-                <img src="https://i.imgur.com/xEnXVfs.png" class="footer-icon-ego">
-                <span data-i18n="btn_fav">Guardar Favoritos</span>
-            </div>
-            <div class="footer-link" onclick="installApp()">
-                <img src="https://i.imgur.com/xEnXVfs.png" class="footer-icon-ego">
-                <span data-i18n="btn_direct">Acceso directo a eGO</span>
+                <span class="star-icon">⭐</span>
+                <span data-i18n="btn_fav">Guardar esta web en favoritos</span>
             </div>
         </div>
     </div>
 
     <div id="optimizer-page">
         <button class="btn-back" onclick="showPortal()" data-i18n="btn_back">← Volver al Portal</button>
-        <div style="background: white; padding: 30px; border-radius: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
+        <div style="background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);">
             <h2 data-i18n="opt_title">📸 Optimiza tus fotos para eGO CRM</h2>
             <div class="drop-zone" onclick="document.getElementById('files').click()">
-                <p data-i18n="opt_drop">Arrastra fotos aquí o haz clic para subir</p>
+                <span class="opt-main-text" data-i18n="opt_drop_main">Haz clic o arrastra tus fotos aquí</span>
+                <span class="opt-sub-text" data-i18n="opt_drop_sub">Se descargarán tus fotos en un archivo zip optimizadas</span>
                 <input type="file" id="files" multiple accept="image/*" style="display:none;">
             </div>
             <div id="status-msg" style="margin-top:20px; font-weight:600; display:none;"></div>
@@ -190,26 +201,6 @@
     <canvas id="canvas" style="display:none;"></canvas>
 
     <script>
-        // Service Worker ficticio para PWA
-        if ('serviceWorker' in navigator) {
-            const swCode = 'self.addEventListener("fetch", (e) => {});';
-            const blob = new Blob([swCode], {type: 'text/javascript'});
-            navigator.serviceWorker.register(URL.createObjectURL(blob));
-        }
-
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
-
-        async function installApp() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                await deferredPrompt.userChoice;
-                deferredPrompt = null;
-            } else {
-                alert(i18n[currentLang].msg_manual);
-            }
-        }
-
         function handleFav() {
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             if (isMobile) {
@@ -237,14 +228,13 @@
                 card_10: "Email Soporte",
                 card_11: "Teléfono",
                 forgot_pass: "🔐 Olvidé mi contraseña",
-                btn_fav: "Guardar Favoritos",
-                btn_direct: "Acceso directo a eGO",
+                btn_fav: "Guardar esta web en favoritos",
                 btn_back: "← Volver",
                 opt_title: "📸 Optimiza tus fotos para eGO CRM",
-                opt_drop: "Haz clic o arrastra fotos",
-                msg_manual: "Para crear el acceso directo:\n\n1. Pulsa el botón de Compartir o los 3 puntos del navegador.\n2. Elige 'Añadir a pantalla de inicio' o 'Instalar'.",
+                opt_drop_main: "Haz clic o arrastra tus fotos aquí",
+                opt_drop_sub: "Se descargarán tus fotos en un archivo zip optimizadas",
                 msg_fav_pc: "Presiona Ctrl+D en tu teclado para añadir esta página a tus favoritos.",
-                msg_fav_mobile: "Para guardar en favoritos:\n\n1. Pulsa el icono de 'Compartir' o el menú de 3 puntos.\n2. Selecciona 'Añadir a Marcadores'."
+                msg_fav_mobile: "Para guardar en favoritos:\n\n1. Pulsa el icono de 'Compartir' o el menú de 3 puntos.\n2. Selecciona 'Añadir a Marcadores' o 'Favoritos'."
             },
             en: {
                 main_title: "Customer Portal",
@@ -263,13 +253,12 @@
                 card_10: "Support Email",
                 card_11: "Phone",
                 forgot_pass: "🔐 Forgot Password",
-                btn_fav: "Add to Bookmarks",
-                btn_direct: "eGO Shortcut",
+                btn_fav: "Save this website to favorites",
                 btn_back: "← Back",
                 opt_title: "📸 Optimize photos for eGO CRM",
-                opt_drop: "Click or drag photos",
-                msg_manual: "To create shortcut:\n\n1. Open browser menu.\n2. Select 'Add to home screen' or 'Install'.",
-                msg_fav_pc: "Press Ctrl+D to bookmark this page.",
+                opt_drop_main: "Click or drag your photos here",
+                opt_drop_sub: "Your photos will be downloaded optimized in a zip file",
+                msg_fav_pc: "Press Ctrl+D on your keyboard to add this page to your bookmarks.",
                 msg_fav_mobile: "To bookmark:\n\n1. Tap 'Share' or the 3-dot menu.\n2. Select 'Add to Bookmarks'."
             },
             pt: {
@@ -289,13 +278,12 @@
                 card_10: "E-mail Suporte",
                 card_11: "Telefone",
                 forgot_pass: "🔐 Esqueci a senha",
-                btn_fav: "Guardar Favoritos",
-                btn_direct: "Atalho eGO",
+                btn_fav: "Guardar esta web nos favoritos",
                 btn_back: "← Voltar",
                 opt_title: "📸 Otimizar fotos para o eGO CRM",
-                opt_drop: "Arraste fotos ou clique",
-                msg_manual: "Para criar o atalho:\n\n1. Abra o menu do navegador.\n2. Selecione 'Adicionar ao ecrã principal'.",
-                msg_fav_pc: "Pressione Ctrl+D para guardar nos favoritos.",
+                opt_drop_main: "Clique ou arraste as suas fotos aqui",
+                opt_drop_sub: "As suas fotos serão descarregadas otimizadas num arquivo zip",
+                msg_fav_pc: "Pressione Ctrl+D no seu teclado para guardar nos favoritos.",
                 msg_fav_mobile: "Para guardar:\n\n1. Clique em 'Partilhar' ou no menu de 3 pontos.\n2. Selecione 'Adicionar aos favoritos'."
             }
         };
@@ -328,7 +316,7 @@
         function showOptimizer() { document.getElementById('portal-page').style.display = 'none'; document.getElementById('optimizer-page').style.display = 'block'; }
         function showPortal() { document.getElementById('optimizer-page').style.display = 'none'; document.getElementById('portal-page').style.display = 'block'; }
 
-        // Optimizador
+        // Lógica del Optimizador
         const fileInput = document.getElementById('files');
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
