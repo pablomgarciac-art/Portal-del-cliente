@@ -8,8 +8,12 @@
     <link rel="icon" type="image/png" href="https://i.imgur.com/vH0H7iL.png">
     
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="eGO Portal">
     <link rel="apple-touch-icon" href="https://i.imgur.com/vH0H7iL.png">
+
+    <link rel="manifest" href='data:application/manifest+json,{"name":"eGO CRM Portal","short_name":"eGO","start_url":".","display":"standalone","background_color":"#1a2b4c","theme_color":"#1a2b4c","icons":[{"src":"https://i.imgur.com/vH0H7iL.png","sizes":"192x192","type":"image/png"},{"src":"https://i.imgur.com/vH0H7iL.png","sizes":"512x512","type":"image/png"}]}'>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,7 +21,6 @@
     <style>
         :root {
             --primary: #1a2b4c;
-            --primary-light: #2c416e;
             --accent: #5dade2;
             --bg: #f0f4f8;
             --white: #ffffff;
@@ -26,94 +29,52 @@
         }
 
         * { box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-main);
-        }
-
-        /* IDIOMAS */
-        .lang-container {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            display: flex;
-            gap: 8px;
-            background: var(--white);
-            padding: 6px 12px;
-            border-radius: 50px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            z-index: 100;
-        }
+        /* Idiomas */
+        .lang-container { position: absolute; top: 15px; right: 20px; display: flex; gap: 8px; background: var(--white); padding: 6px 12px; border-radius: 50px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); z-index: 100; }
         .lang-btn { font-size: 11px; font-weight: 700; color: var(--text-muted); cursor: pointer; padding: 2px 4px; }
         .lang-btn.active { color: var(--primary); border-bottom: 2px solid var(--accent); }
 
         #portal-page, #optimizer-page { width: 100%; max-width: 980px; }
         #optimizer-page { display: none; text-align: center; }
 
-        .main-header {
-            background: var(--primary);
-            border-radius: 24px;
-            padding: 40px;
-            text-align: center;
-            color: white;
-            margin-bottom: 35px;
-        }
-        .logo-img { max-width: 220px; height: auto; margin-bottom: 20px; }
+        .main-header { background: var(--primary); border-radius: 24px; padding: 40px; text-align: center; color: white; margin-bottom: 35px; width: 100%; }
+        .logo-img { max-width: 200px; height: auto; margin-bottom: 15px; }
+        h1 { font-size: 24px; margin: 0; }
 
-        /* SECCIONES */
-        .section-container { margin-bottom: 35px; width: 100%; }
-        .section-title {
-            font-size: 15px; font-weight: 600; color: var(--primary);
-            margin-bottom: 18px; border-bottom: 2px solid #e2e8f0; padding-bottom: 10px;
-            text-transform: uppercase; letter-spacing: 1px;
-        }
+        .section-container { margin-bottom: 30px; width: 100%; }
+        .section-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; text-transform: uppercase; }
 
-        .grid { display: grid; gap: 14px; }
-        @media (min-width: 600px) {
+        /* GRID CORREGIDO: 2 columnas en móvil, 3-5 en escritorio */
+        .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+        @media (min-width: 768px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
             .grid-4 { grid-template-columns: repeat(4, 1fr); }
             .grid-3 { grid-template-columns: repeat(3, 1fr); }
         }
 
         .card {
-            background: var(--white); padding: 20px; border-radius: 16px;
-            text-decoration: none; color: var(--primary);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.25s;
-            border: 1px solid rgba(0,0,0,0.03); text-align: center;
-            display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 110px;
+            background: var(--white); padding: 15px; border-radius: 16px; text-decoration: none; color: var(--primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: 0.2s; border: 1px solid rgba(0,0,0,0.05);
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100px;
         }
-        .card:hover { transform: translateY(-4px); border-color: var(--accent); }
-        .icon { font-size: 28px; margin-bottom: 10px; }
-        h3 { margin: 0; font-size: 13px; font-weight: 600; }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent); }
+        .icon { font-size: 24px; margin-bottom: 8px; }
+        h3 { margin: 0; font-size: 12.5px; font-weight: 600; line-height: 1.2; }
 
-        /* BOTONES INFERIORES */
-        .footer-buttons {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-        }
+        /* Footer */
+        .footer-buttons { margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         .footer-link {
-            font-size: 13px; color: var(--primary-light);
-            padding: 12px 20px; border: 1px solid #d1d9e6; border-radius: 50px;
-            background: var(--white); text-decoration: none;
-            display: inline-flex; align-items: center; gap: 8px;
-            transition: 0.2s; cursor: pointer; font-weight: 500;
+            font-size: 12px; color: var(--primary); padding: 10px 18px; border: 1px solid #d1d9e6; 
+            border-radius: 50px; background: var(--white); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-weight: 600;
         }
-        .footer-link:hover { background: #f8fafc; border-color: var(--accent); transform: translateY(-2px); }
-        .footer-icon-ego { width: 18px; height: 18px; border-radius: 3px; }
+        .footer-icon-ego { width: 16px; height: 16px; }
 
-        /* OPTIMIZADOR */
-        .drop-zone { border: 2px dashed #cbd5e1; padding: 70px 30px; border-radius: 20px; background: #fafafa; cursor: pointer; }
-        .btn-back { background: none; border: 1.5px solid var(--primary); padding: 10px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; }
+        /* Optimizador */
+        .drop-zone { border: 2px dashed #cbd5e1; padding: 50px 20px; border-radius: 20px; background: #fafafa; cursor: pointer; }
+        .btn-back { background: none; border: 1.5px solid var(--primary); padding: 8px 16px; border-radius: 50px; cursor: pointer; margin-bottom: 20px; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -126,12 +87,12 @@
 
     <div id="portal-page">
         <header class="main-header">
-            <img src="https://i.imgur.com/kVfITDo.png" alt="eGO CRM Logo" class="logo-img">
+            <img src="https://i.imgur.com/kVfITDo.png" alt="eGO CRM" class="logo-img">
             <h1 data-i18n="main_title">Centro de Bienvenida eGO CRM</h1>
         </header>
 
         <div class="section-container">
-            <div class="section-title"><span data-i18n="sec_1">🚀 1. Primeros Pasos</span></div>
+            <div class="section-title" data-i18n="sec_1">🚀 1. Primeros Pasos</div>
             <div class="grid grid-5">
                 <a href="https://admin.egorealestate.com/egocore" target="_blank" class="card">
                     <div class="icon">🔑</div><h3 data-i18n="card_1">Accede al CRM</h3>
@@ -152,7 +113,7 @@
         </div>
 
         <div class="section-container">
-            <div class="section-title"><span data-i18n="sec_2">⚡ 2. Empieza a utilizar tu CRM</span></div>
+            <div class="section-title" data-i18n="sec_2">⚡ 2. Empieza a utilizar tu CRM</div>
             <div class="grid grid-4">
                 <a id="link-6" href="#" target="_blank" class="card">
                     <div class="icon">👤➕</div><h3 data-i18n="card_6">Crea usuarios</h3>
@@ -161,7 +122,7 @@
                     <div class="icon">📤</div><h3 data-i18n="card_7">Subir inmueble</h3>
                 </a>
                 <div class="card" onclick="showOptimizer()" style="border: 1px dashed var(--accent); background: #f0f9ff;">
-                    <div class="icon">📸</div><h3 data-i18n="card_8">Optimiza tus fotos</h3>
+                    <div class="icon">📸</div><h3 data-i18n="card_8">Optimiza fotos</h3>
                 </div>
                 <a id="link-9" href="#" target="_blank" class="card">
                     <div class="icon">📈</div><h3 data-i18n="card_9">Crea Oportunidad</h3>
@@ -170,7 +131,7 @@
         </div>
 
         <div class="section-container">
-            <div class="section-title"><span data-i18n="sec_3">💬 3. Soporte y Ayuda</span></div>
+            <div class="section-title" data-i18n="sec_3">💬 3. Soporte y Ayuda</div>
             <div class="grid grid-3">
                 <a href="mailto:support@egorealestate.com" class="card">
                     <div class="icon">📩</div><h3 data-i18n="card_10">Email Soporte</h3>
@@ -179,7 +140,8 @@
                     <div class="icon">📞</div><h3 data-i18n="card_11">Teléfono</h3>
                 </a>
                 <a href="https://wa.me/34650585692" target="_blank" class="card">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:28px; margin-bottom:10px;" alt="WA"><h3>WhatsApp</h3>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" style="width:24px; margin-bottom:8px;">
+                    <h3>WhatsApp</h3>
                 </a>
             </div>
         </div>
@@ -190,48 +152,45 @@
             </a>
             <div class="footer-link" onclick="handleFav()">
                 <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
-                <span data-i18n="btn_fav">Guardar en Favoritos</span>
+                <span data-i18n="btn_fav">Guardar Favoritos</span>
             </div>
-            <div class="footer-link" id="btnInstall" onclick="installPWA()">
+            <div class="footer-link" onclick="installApp()">
                 <img src="https://i.imgur.com/vH0H7iL.png" class="footer-icon-ego">
-                <span data-i18n="btn_direct">Crear Acceso Directo</span>
+                <span data-i18n="btn_direct">Instalar Aplicación (Acceso Directo)</span>
             </div>
         </div>
     </div>
 
     <div id="optimizer-page">
         <button class="btn-back" onclick="showPortal()" data-i18n="btn_back">← Volver al Portal</button>
-        <div style="background: white; padding: 40px; border-radius: 20px;">
+        <div style="background: white; padding: 30px; border-radius: 20px;">
             <h2 data-i18n="opt_title">📸 Optimiza tus fotos</h2>
             <div class="drop-zone" onclick="document.getElementById('files').click()">
-                <p data-i18n="opt_drop">Arrastra tus fotos aquí o haz clic</p>
+                <p data-i18n="opt_drop">Arrastra fotos aquí o haz clic</p>
                 <input type="file" id="files" multiple accept="image/*" style="display:none;">
             </div>
-            <div id="status-msg" style="margin-top:20px; font-weight:600; color:#27ae60; display:none;"></div>
+            <div id="status-msg" style="margin-top:15px; font-weight:600; color:#27ae60; display:none;"></div>
         </div>
     </div>
 
     <canvas id="canvas" style="display:none;"></canvas>
 
     <script>
-        // Lógica de Instalación (PWA)
         let deferredPrompt;
+
+        // Captura el evento nativo de instalación
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            // Opcional: mostrar botón solo cuando esté listo para instalar
-            document.getElementById('btnInstall').style.display = 'inline-flex';
         });
 
-        async function installPWA() {
+        async function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') deferredPrompt = null;
             } else {
-                // Si no es compatible con instalación automática, damos el link directo
-                alert(i18n[currentLang].msg_shortcut_manual);
-                window.open("https://admin.egorealestate.com/", "_blank");
+                alert(i18n[currentLang].msg_manual);
             }
         }
 
@@ -242,23 +201,23 @@
                 card_1: "Accede al CRM",
                 card_2: "Academia eGO",
                 card_3: "Webinars",
-                card_4: "Formaciones Grabadas",
+                card_4: "Formaciones",
                 card_5: "Configura Empresa",
                 sec_2: "⚡ 2. Uso del CRM",
                 card_6: "Crea usuarios",
                 card_7: "Subir inmueble",
-                card_8: "Optimiza tus fotos",
+                card_8: "Optimiza fotos",
                 card_9: "Crea Oportunidad",
                 sec_3: "💬 3. Soporte",
                 card_10: "Email Soporte",
                 card_11: "Teléfono",
-                btn_fav: "Guardar en Favoritos",
-                btn_direct: "Crear Acceso Directo",
+                btn_fav: "Guardar Favoritos",
+                btn_direct: "Instalar Aplicación",
                 btn_back: "← Volver",
                 opt_title: "📸 Optimiza tus fotos",
                 opt_drop: "Haz clic o arrastra fotos",
-                msg_fav: "Para favoritos:\nPC: Ctrl+D\nMóvil: Menú Navegador > Añadir a marcadores",
-                msg_shortcut_manual: "Si no ves la opción de instalar:\n1. Ve al menú de tu navegador (3 puntos o compartir).\n2. Elige 'Añadir a pantalla de inicio'."
+                msg_manual: "Para instalar en el escritorio:\n1. Haz clic en el icono de 'Compartir' o 'Menú' del navegador.\n2. Selecciona 'Añadir a pantalla de inicio' o 'Instalar aplicación'.",
+                msg_fav: "Presiona Ctrl+D (o Cmd+D) para guardar este portal en tus favoritos."
             },
             en: {
                 main_title: "eGO CRM Welcome Center",
@@ -266,23 +225,23 @@
                 card_1: "Access CRM",
                 card_2: "eGO Academy",
                 card_3: "Webinars",
-                card_4: "Recordings",
+                card_4: "Training",
                 card_5: "Company Setup",
                 sec_2: "⚡ 2. CRM Usage",
-                card_6: "Create Users",
-                card_7: "Upload Property",
-                card_8: "Photo Optimizer",
+                card_6: "Create users",
+                card_7: "Upload property",
+                card_8: "Optimize photos",
                 card_9: "Create Opportunity",
                 sec_3: "💬 3. Support",
-                card_10: "Email Support",
+                card_10: "Support Email",
                 card_11: "Phone",
-                btn_fav: "Add to Bookmarks",
-                btn_direct: "Create Shortcut",
+                btn_fav: "Save Favorites",
+                btn_direct: "Install App",
                 btn_back: "← Back",
-                opt_title: "📸 Optimize Photos",
+                opt_title: "📸 Photo Optimizer",
                 opt_drop: "Click or drag photos",
-                msg_fav: "For bookmarks:\nPC: Ctrl+D\nMobile: Browser Menu > Add to bookmarks",
-                msg_shortcut_manual: "If you don't see the install option:\n1. Go to browser menu.\n2. Choose 'Add to home screen'."
+                msg_manual: "To install: \n1. Go to browser menu.\n2. Select 'Add to home screen' or 'Install app'.",
+                msg_fav: "Press Ctrl+D to bookmark this portal."
             },
             pt: {
                 main_title: "Centro de Boas-vindas eGO CRM",
@@ -301,12 +260,12 @@
                 card_10: "E-mail Suporte",
                 card_11: "Telefone",
                 btn_fav: "Favoritos",
-                btn_direct: "Criar Atalho",
+                btn_direct: "Instalar App",
                 btn_back: "← Voltar",
                 opt_title: "📸 Otimizar fotos",
                 opt_drop: "Arraste fotos ou clique",
-                msg_fav: "Favoritos:\nPC: Ctrl+D\nTelemóvel: Menu > Adicionar aos favoritos",
-                msg_shortcut_manual: "Se não vir a opção de instalar:\n1. Vá ao menu do navegador.\n2. Escolha 'Adicionar ao ecrã principal'."
+                msg_manual: "Para instalar: \n1. Vá ao menu do navegador.\n2. Selecione 'Adicionar ao ecrã principal'.",
+                msg_fav: "Pressione Ctrl+D para guardar nos favoritos."
             }
         };
 
@@ -377,7 +336,6 @@
                 rd.readAsDataURL(file);
             });
         }
-        
         window.onload = () => { setLanguage('es'); };
     </script>
 </body>
