@@ -18,17 +18,16 @@
             --white: #ffffff;
             --text-main: #334155;
             --text-muted: #64748b;
+            --whatsapp: #25d366;
             --font-main: 'Poppins', sans-serif;
         }
 
         * { box-sizing: border-box; }
-        body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
+        body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); padding-bottom: 100px; /* Espacio para el robot */ }
 
-        /* --- PÁGINAS --- */
-        #portal-page, #learning-page { width: 100%; max-width: 980px; }
-        #learning-page { display: none; }
+        #portal-page, #learning-page, #optimizer-page { width: 100%; max-width: 980px; }
+        #learning-page, #optimizer-page { display: none; }
 
-        /* --- HOME --- */
         .main-header { background: var(--primary); border-radius: 24px; padding: 40px; text-align: center; color: white; margin-bottom: 35px; width: 100%; }
         .logo-img { max-width: 200px; height: auto; margin-bottom: 15px; }
         h1 { font-size: 26px; margin: 0; font-weight: 600; }
@@ -52,49 +51,181 @@
         .icon { font-size: 28px; margin-bottom: 10px; }
         h3 { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.3; }
 
+        .footer-buttons { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 40px; }
+        .footer-link { color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: none; font-weight: 500; }
+        .forgot-pw { color: var(--ego-blue); font-weight: 600; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+
+        /* --- OPTIMIZADOR ESTILO PAGINA --- */
+        .opt-container { background: white; border-radius: 24px; padding: 50px; text-align: center; border: 2px dashed var(--ego-blue); }
+
         /* --- FORMACIÓN --- */
-        .learning-container { display: flex; background: white; border-radius: 24px; overflow: hidden; height: 780px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .learn-sidebar { width: 300px; background: var(--primary); display: flex; flex-direction: column; border-right: 1px solid rgba(255,255,255,0.1); }
+        .learning-container { display: flex; background: white; border-radius: 24px; overflow: hidden; height: 850px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .learn-sidebar { width: 300px; background: var(--primary); display: flex; flex-direction: column; }
         .sidebar-header { padding: 25px 20px 15px 20px; }
         .sidebar-title { color: white; font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 15px; }
-        
-        .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px 8px 35px; border-radius: 10px; color: white; font-size: 13px; font-family: var(--font-main); outline: none; }
-
+        .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px 8px 35px; border-radius: 10px; color: white; font-size: 13px; outline: none; }
         .learn-nav { padding: 0 10px 20px 10px; overflow-y: auto; flex: 1; }
-        .learn-item { width: 100%; padding: 12px 15px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; margin-bottom: 5px; text-transform: uppercase; font-family: 'Poppins'; transition: 0.2s; }
+        .learn-item { width: 100%; padding: 12px 15px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; margin-bottom: 5px; text-transform: uppercase; transition: 0.2s; }
         .learn-item.active { background: var(--ego-blue); color: white; }
         
         .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; }
         .learn-header { height: 80px; background: white; padding: 0 30px; display: flex; align-items: center; border-bottom: 1px solid #e2e8f0; justify-content: space-between; }
         
-        /* BLOQUE DE PROGRESO Y AYUDA */
-        .header-right { display: flex; align-items: center; gap: 20px; }
-        .btn-how { background: #f1f5f9; border: none; padding: 8px 12px; border-radius: 8px; font-size: 11px; font-weight: 700; color: var(--ego-blue); cursor: pointer; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
-        .btn-how:hover { background: var(--ego-blue); color: white; }
-
         .progress-box { width: 180px; }
         .progress-text { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); }
         .p-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
         .p-bar-fill { height: 100%; background: #2ecc71; width: 0%; transition: 0.5s; }
 
         .learn-content { padding: 30px; overflow-y: auto; flex: 1; }
-        .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; }
-        .tutorial-box { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; text-decoration: none; color: var(--text-main); position: relative; transition: 0.2s; min-height: 100px; display: flex; flex-direction: column; justify-content: center; }
+        .section-intro { background: #eef2ff; padding: 20px; border-radius: 15px; margin-bottom: 25px; border-left: 5px solid var(--ego-blue); }
+        .section-intro p { margin: 0; font-size: 14px; color: var(--text-main); line-height: 1.6; }
+
+        .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .tutorial-box { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; text-decoration: none; color: var(--text-main); position: relative; transition: 0.2s; display: flex; flex-direction: column; }
         .tutorial-box:hover { border-color: var(--ego-blue); transform: translateY(-3px); }
         .tutorial-box.visited::after { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 12px; right: 12px; color: #10b981; }
 
-        /* MODAL EXPLICATIVO */
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); }
-        .modal-content { background: white; margin: 10% auto; padding: 30px; border-radius: 24px; width: 90%; max-width: 500px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
-        .close-modal { position: absolute; top: 20px; right: 20px; font-size: 20px; cursor: pointer; color: var(--text-muted); }
-        .modal h2 { color: var(--primary); margin-top: 0; }
-        .modal ul { padding-left: 20px; color: var(--text-main); line-height: 1.8; }
-
+        .wiki-footer { margin-top: 40px; padding: 30px; background: var(--primary); border-radius: 20px; color: white; text-align: center; }
+        .btn-wiki { display: inline-block; margin-top: 15px; background: var(--ego-blue); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; }
+        
         .btn-back { font-family: var(--font-main); background: none; border: 1.5px solid var(--primary); padding: 10px 25px; border-radius: 50px; cursor: pointer; margin-bottom: 25px; font-weight: 700; }
         .btn-back:hover { background: var(--primary); color: white; }
+
+        /* --- ESTILOS DEL ROBOT ASISTENTE --- */
+        .robot-assistant-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .robot-head-button {
+            width: 70px;
+            height: 70px;
+            background-image: url('https://i.imgur.com/UyQRWqR.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            border: 4px solid var(--white);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .robot-head-button:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .robot-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--ego-blue);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: pulse-ring 2s infinite;
+            z-index: -1;
+            top: 0; left: 0;
+        }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        /* Globos de diálogo */
+        .robot-dialog {
+            background: var(--white);
+            padding: 15px 20px;
+            border-radius: 18px 18px 2px 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            color: var(--text-main);
+            max-width: 280px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.3s;
+            pointer-events: none; /* No interrumpir clics */
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .robot-dialog.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Diálogo introductorio (aparece en hover) */
+        #robot-intro-dialog {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .robot-assistant-container:hover #robot-intro-dialog {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Diálogo de consejos (aparece al hacer clic) */
+        #robot-tip-dialog {
+            border: 2px solid var(--ego-blue);
+            background: #eef2ff;
+        }
+
+        .tip-header {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--ego-blue);
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .tip-content {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .tip-footer {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 5px;
+            text-align: right;
+        }
+
     </style>
 </head>
 <body>
+
+    <div class="robot-assistant-container">
+        <div style="display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 10px;">
+            
+            <div id="robot-intro-dialog" class="robot-dialog">
+                🤖 Soy tu asistente de eGO. Si haces clic en mi cabeza, te daré consejos sobre el CRM.
+            </div>
+
+            <div id="robot-tip-dialog" class="robot-dialog">
+                <div class="tip-header"><i class="fa-solid fa-lightbulb"></i> Consejo eGO del día</div>
+                <div id="tip-text-content" class="tip-content">Haz clic en mi cabeza para empezar...</div>
+                <div class="tip-footer">clic de nuevo para otro consejo</div>
+            </div>
+
+        </div>
+
+        <div class="robot-head-button" onclick="giveRandomTip()">
+            <div class="robot-pulse"></div>
+        </div>
+    </div>
 
     <div id="portal-page">
         <header class="main-header">
@@ -106,7 +237,7 @@
             <div class="section-title">🚀 1. Primeros Pasos</div>
             <div class="grid grid-5">
                 <a href="https://admin.egorealestate.com/egocore" target="_blank" class="card"><div class="icon">🔑</div><h3>Accede al CRM</h3></a>
-                <a href="https://wiki-es.egorealestate.com/login" target="_blank" class="card"><div class="icon">🎓</div><h3>Academia de eGO</h3></a>
+                <a href="https://wiki-es.egorealestate.com/login" target="_blank" class="card"><div class="icon">🎓</div><h3>Academia de eGO / Tutoriales</h3></a>
                 <a href="https://www.egorealestate.es/webinars" target="_blank" class="card"><div class="icon">📅</div><h3>Calendario Webinars</h3></a>
                 <a href="https://wiki-es.egorealestate.com/grabaciones-formaciones/ego-real-estate" target="_blank" class="card"><div class="icon">🎥</div><h3>Formaciones Grabadas</h3></a>
                 <a href="https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa" target="_blank" class="card"><div class="icon">🏢</div><h3>Configura tu empresa</h3></a>
@@ -117,8 +248,10 @@
             <div class="section-title">⚡ 2. Uso del CRM</div>
             <div class="grid grid-4">
                 <a href="https://wiki-es.egorealestate.com/es/software/configuraciones/crear-usuarios" target="_blank" class="card"><div class="icon">👤➕</div><h3>Crear usuarios</h3></a>
-                <a href="https://wiki-es.egorealestate.com/es/software/inmuebles/inmuebles/subir-inmuebles" target="_blank" class="card"><div class="icon">📤</div><h3>Subir inmueble</h3></a>
-                <div class="card" onclick="alert('Optimizador en desarrollo')" style="border: 1px dashed var(--accent); background: #f0f9ff; cursor:pointer;"><div class="icon">📸</div><h3>Optimizador de fotos</h3></div>
+                <a href="https://wiki-es.egorealestate.com/es/software/inmuebles/inmuebles/subir-inmuebles" target="_blank" class="card"><div class="icon">📤</div><h3>Subir inmueble al CRM</h3></a>
+                <div class="card" onclick="showPage('optimizer-page')" style="cursor:pointer; border: 1px solid var(--accent);">
+                    <div class="icon">📸</div><h3>Optimizador de fotos</h3>
+                </div>
                 <a href="https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades" target="_blank" class="card"><div class="icon">📈</div><h3>Crea una oportunidad</h3></a>
             </div>
         </div>
@@ -129,13 +262,49 @@
                 <div class="card" onclick="showPage('learning-page')" style="border: 2px solid var(--ego-blue); background: #eef2ff; cursor:pointer; grid-column: span 2;">
                     <div class="icon">🎓</div>
                     <h3 style="font-weight: 700;">ACCEDER AL CENTRO DE FORMACIÓN POR SECCIONES</h3>
-                    <p style="font-size: 11px; margin-top: 5px; color: var(--text-muted);">Aprende paso a paso todas las funciones clave.</p>
+                    <p style="font-size: 11px; margin-top: 5px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
                 </div>
             </div>
         </div>
 
+        <div class="section-container">
+            <div class="section-title">📞 4. Contacto Directo</div>
+            <div class="grid grid-3">
+                <a href="mailto:soporte@egorealestate.com" class="card">
+                    <div class="icon" style="color: #5dade2;"><i class="fa-solid fa-envelope"></i></div>
+                    <h3>Contacto por Email</h3>
+                </a>
+                <a href="tel:+34910000000" class="card">
+                    <div class="icon" style="color: #1a2b4c;"><i class="fa-solid fa-phone"></i></div>
+                    <h3>Contacto Telefónico</h3>
+                </a>
+                <a href="https://wa.me/34000000000" target="_blank" class="card">
+                    <div class="icon" style="color: var(--whatsapp);"><i class="fa-brands fa-whatsapp"></i></div>
+                    <h3>Contacto WhatsApp</h3>
+                </a>
+            </div>
+        </div>
+
         <div class="footer-buttons">
-            <div class="footer-link" onclick="alert('Presiona Ctrl+D para añadir a favoritos')">⭐ Guardar en favoritos</div>
+            <div class="footer-link" onclick="alert('Presiona Ctrl+D para añadir a favoritos')">⭐ Guardar este portal en favoritos</div>
+            <a href="https://admin.egorealestate.com/EgoCore/Main/RecoverPassword.aspx" target="_blank" class="forgot-pw">
+                <i class="fa-solid fa-unlock-keyhole"></i> ¿Has olvidado tu contraseña?
+            </a>
+        </div>
+    </div>
+
+    <div id="optimizer-page">
+        <button class="btn-back" onclick="showPage('portal-page')">← Volver al Portal</button>
+        <div class="opt-container">
+            <div class="icon" style="font-size: 50px;">📸</div>
+            <h2 style="color: var(--primary);">Optimizador de Imágenes</h2>
+            <p>Reduce el peso de tus fotografías antes de subirlas al CRM para que tu web cargue más rápido.</p>
+            
+            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 60px; border-radius: 20px; margin: 30px 0;">
+                <input type="file" multiple style="margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
+                <p style="font-size: 12px; color: var(--text-muted);">Suelte sus archivos aquí o haga clic para buscar.</p>
+            </div>
+            <p style="font-size: 11px; color: #e74c3c;">* Recuerda que el límite recomendado por eGO es de 10MB por foto.</p>
         </div>
     </div>
 
@@ -144,10 +313,10 @@
         <div class="learning-container">
             <aside class="learn-sidebar">
                 <div class="sidebar-header">
-                    <div class="sidebar-title">Módulos eGO</div>
-                    <div class="search-wrapper" style="position:relative">
+                    <div class="sidebar-title">Por secciones</div>
+                    <div style="position:relative">
                         <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:10px; color:#94a3b8; font-size:12px;"></i>
-                        <input type="text" id="learn-search" class="search-input" style="padding-left:35px;" placeholder="Buscar sección..." onkeyup="filterSections()">
+                        <input type="text" id="learn-search" class="search-input" placeholder="Buscar sección..." onkeyup="filterSections()">
                     </div>
                 </div>
                 <nav class="learn-nav" id="learn-menu"></nav>
@@ -155,14 +324,9 @@
             <main class="learn-main">
                 <header class="learn-header">
                     <div id="learn-title" style="font-weight: 700; color: var(--primary); font-size: 18px;">Formación</div>
-                    <div class="header-right">
-                        <button class="btn-how" onclick="toggleModal(true)">
-                            <i class="fa-regular fa-circle-question"></i> ¿Cómo funciona?
-                        </button>
-                        <div class="progress-box">
-                            <div class="progress-text"><span>TU PROGRESO</span> <span id="percent-text">0%</span></div>
-                            <div class="p-bar-bg"><div class="p-bar-fill" id="learn-pfill"></div></div>
-                        </div>
+                    <div class="progress-box">
+                        <div class="progress-text"><span>PROGRESO</span> <span id="percent-text">0%</span></div>
+                        <div class="p-bar-bg"><div class="p-bar-fill" id="learn-pfill"></div></div>
                     </div>
                 </header>
                 <div class="learn-content" id="learn-content"></div>
@@ -170,45 +334,114 @@
         </div>
     </div>
 
-    <div id="how-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="toggleModal(false)">&times;</span>
-            <h2>📖 ¿Cómo funciona?</h2>
-            <p>Sigue estos pasos para dominar eGO CRM:</p>
-            <ul>
-                <li><strong>Selecciona un módulo:</strong> Usa el menú de la izquierda para elegir qué quieres aprender.</li>
-                <li><strong>Filtra rápido:</strong> Usa el buscador para encontrar temas específicos (ej: "facturas").</li>
-                <li><strong>Completa tutoriales:</strong> Al hacer clic en un tutorial, se abrirá en una pestaña nueva y se marcará como <strong>completado</strong> (✅).</li>
-                <li><strong>Mide tu progreso:</strong> La barra superior te indicará cuánto te falta para ser un experto en eGO.</li>
-            </ul>
-            <button class="btn-back" style="width:100%; margin-top:15px;" onclick="toggleModal(false)">¡Entendido!</button>
-        </div>
-    </div>
-
     <script>
+        // --- LÓGICA DEL ASISTENTE DE CONSEJOS ---
+        const crmTips = [
+            "¡Usa etiquetas! Segmentar tus contactos por etiquetas (ej. 'Inversor', 'Busca Alquiler') te permitirá hacer campañas de email marketing mucho más efectivas.",
+            "Antes de subir fotos pesadas de un inmueble, usa nuestro **Optimizador de Imágenes**. Tu web cargará más rápido y mejorarás el SEO.",
+            "No olvides registrar todas las interacciones en la ficha del contacto. Así, cualquier compañero sabrá en qué punto está la negociación.",
+            "Crea **Oportunidades** para cada cliente interesado. Te ayudará a visualizar tu embudo de ventas y a no perder ningún cierre.",
+            "Configura los **Smartlinks** en tus inmuebles. Podrás enviarlos por WhatsApp y saber cuándo el cliente ha visto la propiedad.",
+            "Sincroniza tu calendario de eGO con Google Calendar o Outlook. Así tendrás todas tus visitas y reuniones centralizadas en tu móvil.",
+            "Utiliza el **Dashboard**. Dedica 5 minutos al inicio del día para revisar tus tareas pendientes y los nuevos leads.",
+            "Si trabajas en equipo, define bien los permisos de usuario en Configuración para proteger la base de datos.",
+            "¿Sabías que puedes crear **Landing Pages** desde eGO para captar propietarios? Úsalas en tus campañas de Facebook o Google Ads.",
+            "Revisa las formaciones grabadas en la Academia. ¡Siempre hay trucos nuevos que aprender!"
+        ];
+
+        let currentTipIndex = -1;
+
+        function giveRandomTip() {
+            const tipDialog = document.getElementById('robot-tip-dialog');
+            const introDialog = document.getElementById('robot-intro-dialog');
+            const tipText = document.getElementById('tip-text-content');
+
+            // Ocultar intro para siempre una vez se hace clic
+            introDialog.style.display = 'none';
+
+            let nextIndex;
+            // Asegurar que no se repita el mismo consejo dos veces seguidas
+            do {
+                nextIndex = Math.floor(Math.random() * crmTips.length);
+            } while (nextIndex === currentTipIndex);
+            
+            currentTipIndex = nextIndex;
+            tipText.innerHTML = crmTips[currentTipIndex];
+
+            // Mostrar el globo de consejo
+            tipDialog.classList.add('active');
+        }
+
+        // --- LÓGICA ORIGINAL DEL PORTAL ---
         const learnData = {
-            dashboard: { title: "Dashboard", icon: "fa-chart-line", links: [{ t: "Utilizar el Dashboard", l: "https://wiki-es.egorealestate.com/software/dashboard/utilizar-el-dashboard", i: "fa-gauge-high" }] },
-            contactos: { title: "Contactos", icon: "fa-user-group", links: [
-                { t: "Subir contactos manualmente", l: "https://wiki-es.egorealestate.com/software/contactos/subir-contactos-manualmente", i: "fa-user-plus" },
-                { t: "Gestionar etiquetas", l: "https://wiki-es.egorealestate.com/software/contactos/gestion-de-etiquetas", i: "fa-tags" },
-                { t: "Carpeta del propietario (PDF)", l: "https://wiki-es.egorealestate.com/software/contactos/carpeta-del-propietario", i: "fa-file-pdf" }
-            ]},
-            inmuebles: { title: "Inmuebles", icon: "fa-house-laptop", links: [
-                { t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" },
-                { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" },
-                { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }
-            ]},
-            oportunidades: { title: "Oportunidades", icon: "fa-briefcase", links: [
-                { t: "Crear nuevas oportunidades", l: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", i: "fa-lightbulb" },
-                { t: "Gestión del Embudo", l: "https://wiki-es.egorealestate.com/software/oportunidades/embudo-de-ventas", i: "fa-filter" }
-            ]},
-            tareas: { title: "Tareas", icon: "fa-calendar-check", links: [{ t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" }] },
-            marketing: { title: "Marketing", icon: "fa-bullhorn", links: [{ t: "Campañas de Email", l: "https://wiki-es.egorealestate.com/ego-crm-realestate/software/campanas", i: "fa-paper-plane" }] },
-            facturacion: { title: "Facturación", icon: "fa-file-invoice-dollar", links: [
-                { t: "Emitir facturas", l: "https://wiki-es.egorealestate.com/software/facturacion/emitir-facturas", i: "fa-file-invoice" },
-                { t: "Configuración Veri*Factu", l: "https://wiki-es.egorealestate.com/software/facturacion/veri-factu", i: "fa-shield-halved" }
-            ]},
-            configuracion: { title: "Configuración", icon: "fa-gears", links: [{ t: "Configurar empresa", l: "https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa", i: "fa-building-gear" }] }
+            dashboard: { 
+                title: "Dashboard", 
+                desc: "El Dashboard es tu centro de mando. Aquí verás de un vistazo el resumen de tu actividad, inmuebles recientes y próximas tareas para organizar tu día de forma eficiente.",
+                icon: "fa-chart-line", 
+                links: [{ t: "Utilizar el Dashboard", l: "https://wiki-es.egorealestate.com/software/dashboard/utilizar-el-dashboard", i: "fa-gauge-high" }] 
+            },
+            contactos: { 
+                title: "Contactos", 
+                desc: "Gestiona tu cartera de clientes de forma profesional. Aprende a segmentar por etiquetas, importar bases de datos y realizar un seguimiento impecable de cada interesado.",
+                icon: "fa-user-group", 
+                links: [
+                    { t: "Subir contactos manualmente", l: "https://wiki-es.egorealestate.com/software/contactos/subir-contactos-manualmente", i: "fa-user-plus" },
+                    { t: "Gestionar etiquetas", l: "https://wiki-es.egorealestate.com/software/contactos/gestion-de-etiquetas", i: "fa-tags" },
+                    { t: "Carpeta del propietario (PDF)", l: "https://wiki-es.egorealestate.com/software/contactos/carpeta-del-propietario", i: "fa-file-pdf" }
+                ]
+            },
+            inmuebles: { 
+                title: "Inmuebles", 
+                desc: "La pieza central de tu negocio. Aprende a subir fichas detalladas, gestionar fotos de calidad y utilizar herramientas para compartir tus propiedades de forma atractiva.",
+                icon: "fa-house-laptop", 
+                links: [
+                    { t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" },
+                    { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" },
+                    { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }
+                ]
+            },
+            oportunidades: { 
+                title: "Oportunidades", 
+                desc: "Controla tu embudo de ventas. Convierte interesados en cierres gestionando cada fase de la negociación y automatizando el cruce de demandas con inmuebles.",
+                icon: "fa-briefcase", 
+                links: [
+                    { t: "Crear nuevas oportunidades", l: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", i: "fa-lightbulb" },
+                    { t: "Gestión del Embudo", l: "https://wiki-es.egorealestate.com/software/oportunidades/embudo-de-ventas", i: "fa-filter" }
+                ]
+            },
+            tareas: { 
+                title: "Tareas y Calendario", 
+                desc: "No olvides ninguna cita. Organiza tu agenda sincronizada y programa recordatorios para llamadas, visitas y reuniones importantes.",
+                icon: "fa-calendar-check", 
+                links: [
+                    { t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" },
+                    { t: "Sincronizar con Google/Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }
+                ]
+            },
+            marketing: { 
+                title: "Campañas y Marketing", 
+                desc: "Llega más lejos con tus inmuebles. Crea boletines de noticias profesionales y páginas de aterrizaje (landings) diseñadas para captar nuevos leads automáticamente.",
+                icon: "fa-bullhorn", 
+                links: [
+                    { t: "Campañas de Email", l: "https://wiki-es.egorealestate.com/ego-crm-realestate/software/campanas", i: "fa-paper-plane" },
+                    { t: "Crear una Landing Page", l: "https://wiki-es.egorealestate.com/es/software/campanas/crear-una-landing-page", i: "fa-window-maximize" }
+                ]
+            },
+            facturacion: { 
+                title: "Facturación", 
+                desc: "Gestiona tus honorarios y gastos. Emite facturas legales, controla cobros pendientes y mantén tu contabilidad al día desde el propio CRM.",
+                icon: "fa-file-invoice-dollar", 
+                links: [
+                    { t: "Emitir facturas", l: "https://wiki-es.egorealestate.com/software/facturacion/emitir-facturas", i: "fa-file-invoice" },
+                    { t: "Configuración Veri*Factu", l: "https://wiki-es.egorealestate.com/software/facturacion/veri-factu", i: "fa-shield-halved" }
+                ]
+            },
+            configuracion: { 
+                title: "Configuración", 
+                desc: "Personaliza eGO a la medida de tu agencia. Define permisos de usuarios, configura tus datos fiscales y ajusta las preferencias de visualización del software.",
+                icon: "fa-gears", 
+                links: [{ t: "Configurar empresa", l: "https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa", i: "fa-building-gear" }] 
+            }
         };
 
         let visitedLinks = new Set();
@@ -217,7 +450,10 @@
         function showPage(pageId) {
             document.getElementById('portal-page').style.display = 'none';
             document.getElementById('learning-page').style.display = 'none';
+            document.getElementById('optimizer-page').style.display = 'none';
+            
             document.getElementById(pageId).style.display = 'block';
+            
             if(pageId === 'learning-page') initLearnMenu();
             window.scrollTo(0,0);
         }
@@ -244,12 +480,25 @@
             document.querySelectorAll('.learn-item').forEach(b => b.classList.remove('active'));
             document.getElementById(`lbtn-${key}`).classList.add('active');
             document.getElementById('learn-title').innerText = s.title;
-            document.getElementById('learn-content').innerHTML = `<div class="tutorial-grid">${s.links.map(link => `
+            
+            let html = `
+                <div class="section-intro"><p>${s.desc}</p></div>
+                <div class="tutorial-grid">${s.links.map(link => `
                 <a href="${link.l}" target="_blank" class="tutorial-box ${visitedLinks.has(link.l) ? 'visited' : ''}" onclick="markVisit('${link.l}', '${key}')">
                     <i class="fa-solid ${link.i}" style="font-size: 24px; color: var(--ego-blue); margin-bottom:12px; display:block;"></i>
                     <div style="font-weight:600; font-size:13px; margin-bottom:5px;">${link.t}</div>
                     <div style="font-size:11px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
-                </a>`).join('')}</div>`;
+                </a>`).join('')}</div>
+                
+                <div class="wiki-footer">
+                    <h3>¿Necesitas más información?</h3>
+                    <p>Encuentra cientos de artículos detallados en nuestra base de conocimientos oficial.</p>
+                    <a href="https://wiki-es.egorealestate.com/" target="_blank" class="btn-wiki">
+                        <i class="fa-solid fa-book-open"></i> EXPLORAR WIKI COMPLETA
+                    </a>
+                </div>`;
+                
+            document.getElementById('learn-content').innerHTML = html;
         }
 
         function markVisit(url, key) {
@@ -258,10 +507,6 @@
             document.getElementById('learn-pfill').style.width = p + '%';
             document.getElementById('percent-text').innerText = p + '%';
             setTimeout(() => showLearnSection(key), 300);
-        }
-
-        function toggleModal(show) {
-            document.getElementById('how-modal').style.display = show ? 'block' : 'none';
         }
     </script>
 </body>
