@@ -86,7 +86,7 @@
         @media (min-width: 900px) {
             .learning-container { flex-direction: row; height: 850px; }
             .learn-sidebar { width: 320px; display: flex; flex-direction: column; }
-            .learn-nav { flex-direction: column; overflow-y: auto; }
+            .learn-nav { flex-direction: column !important; overflow-y: auto; }
             .learn-item { width: 100%; margin-bottom: 5px; }
         }
 
@@ -95,8 +95,10 @@
         .sidebar-title { color: white; font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; }
         .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 10px 12px 10px 35px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
         
-        .learn-nav { padding: 10px; display: flex; overflow-x: auto; gap: 8px; }
-        .learn-item { padding: 14px 18px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; }
+        /* CAMBIO RESPONSIVE: Menú vertical por defecto en móvil */
+        .learn-nav { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+        .learn-item { padding: 14px 18px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; width: 100%; }
+        
         .learn-item.active { background: var(--ego-blue); color: white; }
         
         .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
@@ -265,7 +267,6 @@
     </div>
 
     <script>
-        // Mismos scripts del anterior
         const tips = [
             "¡Usa etiquetas! Te ayudan a segmentar clientes por intereses.",
             "Usa el optimizador de fotos para que tu web vuele 🚀",
@@ -328,11 +329,11 @@
                     <div style="font-size:12px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
                 </a>`).join('')}</div>
                 
-                <div class=\"wiki-footer\">
+                <div class="wiki-footer">
                     <h3>¿Necesitas más información?</h3>
                     <p>Encuentra cientos de tutoriales detallados en nuestra base de conocimientos oficial.</p>
-                    <a href=\"https://wiki-es.egorealestate.com/\" target=\"_blank\" class=\"btn-wiki\">
-                        <i class=\"fa-solid fa-book-open\"></i> EXPLORAR WIKI COMPLETA
+                    <a href="https://wiki-es.egorealestate.com/" target="_blank" class="btn-wiki">
+                        <i class="fa-solid fa-book-open"></i> EXPLORAR WIKI COMPLETA
                     </a>
                 </div>`;
             document.getElementById('learn-content').innerHTML = html;
