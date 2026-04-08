@@ -28,20 +28,23 @@
         /* Ajuste de tamaño para pantallas de ordenador */
         #portal-page, #learning-page, #optimizer-page { 
             width: 100%; 
-            max-width: 1200px; /* Aumentado de 980px a 1200px */
+            max-width: 1200px; 
             transition: all 0.3s ease;
         }
 
         @media (min-width: 1200px) {
             body { 
-                zoom: 1.05; /* Aumenta ligeramente el tamaño general en pantallas grandes */
+                zoom: 1.05; 
             }
         }
 
         #learning-page, #optimizer-page { display: none; }
 
+        /* Margen inferior en la home para que el robot no tape el pie */
+        #portal-page { padding-bottom: 100px; }
+
         .main-header { background: var(--primary); border-radius: 24px; padding: 50px 40px; text-align: center; color: white; margin-bottom: 35px; width: 100%; }
-        .logo-img { max-width: 240px; height: auto; margin-bottom: 15px; } /* Logo un poco más grande */
+        .logo-img { max-width: 240px; height: auto; margin-bottom: 15px; }
         h1 { font-size: 30px; margin: 0; font-weight: 600; }
 
         .section-container { margin-bottom: 35px; width: 100%; }
@@ -63,7 +66,7 @@
         .icon { font-size: 32px; margin-bottom: 12px; }
         h3 { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
 
-        .footer-buttons { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 40px; }
+        .footer-buttons { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
         .footer-link { color: var(--text-muted); font-size: 14px; cursor: pointer; text-decoration: none; font-weight: 500; }
         .forgot-pw { color: var(--ego-blue); font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 5px; }
 
@@ -96,7 +99,9 @@
         .p-bar-bg { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
         .p-bar-fill { height: 100%; background: #2ecc71; width: 0%; transition: 0.5s; }
 
-        .learn-content { padding: 35px; overflow-y: auto; flex: 1; }
+        /* Margen inferior en el contenido de aprendizaje para el robot */
+        .learn-content { padding: 35px 35px 100px 35px; overflow-y: auto; flex: 1; }
+        
         .section-intro { background: #eef2ff; padding: 25px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--ego-blue); }
         .section-intro p { margin: 0; font-size: 15px; color: var(--text-main); line-height: 1.7; }
 
@@ -268,7 +273,7 @@
         const learnData = {
             dashboard: { title: "Dashboard", desc: "El Dashboard es tu centro de mando. Aquí verás de un vistazo el resumen de tu actividad, inmuebles recientes y próximas tareas para organizar tu día de forma eficiente.", icon: "fa-chart-line", links: [{ t: "Utilizar el Dashboard", l: "https://wiki-es.egorealestate.com/software/dashboard/utilizar-el-dashboard", i: "fa-gauge-high" }] },
             contactos: { title: "Contactos", desc: "Gestiona tu cartera de clientes de forma profesional. Aprende a segmentar por etiquetas, importar bases de datos y realizar un seguimiento impecable de cada interesado.", icon: "fa-user-group", links: [{ t: "Subir contactos manualmente", l: "https://wiki-es.egorealestate.com/software/contactos/subir-contactos-manualmente", i: "fa-user-plus" }, { t: "Gestionar etiquetas", l: "https://wiki-es.egorealestate.com/software/contactos/gestion-de-etiquetas", i: "fa-tags" }, { t: "Carpeta del propietario (PDF)", l: "https://wiki-es.egorealestate.com/software/contactos/carpeta-del-propietario", i: "fa-file-pdf" }] },
-            inmuebles: { title: "Inmuebles", desc: "La pieza central de tu negocio. Aprende a subir fichas detalladas, gestionar fotos de calidad y utilizar herramientas para compartir tus propiedades de forma atractiva.", icon: "fa-house-laptop", links: [{ t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" }, { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" }, { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }] },
+            inmuebles: { title: "Inmuebles", desc: "La pieza central de tu negocio. Aprende a subir fichas detalladas, gestionar fotos de calidad y utilizar herramientas para compartir tus propiedades de forma atractiva.", icon: "fa-house-laptop", icon: "fa-house-laptop", links: [{ t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" }, { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" }, { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }] },
             oportunidades: { title: "Oportunidades", desc: "Controla tu embudo de ventas. Convierte interesados en cierres gestionando cada fase de la negociación y automatizando el cruce de demandas con inmuebles.", icon: "fa-briefcase", links: [{ t: "Crear nuevas oportunidades", l: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", i: "fa-lightbulb" }, { t: "Gestión del Embudo", l: "https://wiki-es.egorealestate.com/software/oportunidades/embudo-de-ventas", i: "fa-filter" }] },
             tareas: { title: "Tareas y Calendario", desc: "No olvides ninguna cita. Organiza tu agenda sincronizada y programa recordatorios para llamadas, visitas y reuniones importantes.", icon: "fa-calendar-check", links: [{ t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" }, { t: "Sincronizar con Google / Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }] },
             marketing: { title: "Campañas y Marketing", desc: "Llega más lejos con tus inmuebles. Crea boletines de noticias profesionales y páginas de aterrizaje (landings) diseñadas para captar nuevos leads automáticamente.", icon: "fa-bullhorn", links: [{ t: "Campañas de Email", l: "https://wiki-es.egorealestate.com/ego-crm-realestate/software/campanas", i: "fa-paper-plane" }, { t: "Crear una Landing Page", l: "https://wiki-es.egorealestate.com/es/software/campanas/crear-una-landing-page", i: "fa-window-maximize" }] },
