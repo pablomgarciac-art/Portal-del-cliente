@@ -25,32 +25,25 @@
         * { box-sizing: border-box; }
         body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
 
-        /* Ajuste de tamaño para pantallas de ordenador */
         #portal-page, #optimizer-page { 
             width: 100%; 
             max-width: 1200px; 
             transition: all 0.3s ease;
         }
 
-        /* Sección de aprendizaje con más anchura en escritorio */
         #learning-page {
             width: 100%;
-            max-width: 1450px; /* Aumentado para que encaje mejor */
+            max-width: 1450px;
             transition: all 0.3s ease;
         }
 
         @media (min-width: 1200px) {
-            body { 
-                zoom: 1.05; 
-            }
+            body { zoom: 1.05; }
         }
 
         #learning-page, #optimizer-page { display: none; }
-
-        /* Espacio de seguridad de 150px para el robot */
         #portal-page { padding-bottom: 150px; }
 
-        /* Cabecera estrechada (padding reducido de 50px a 25px) */
         .main-header { 
             background: var(--primary); 
             border-radius: 24px; 
@@ -91,10 +84,11 @@
         .learning-container { display: flex; flex-direction: column; background: white; border-radius: 24px; overflow: hidden; min-height: 700px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         
         @media (min-width: 900px) {
-            .learning-container { flex-direction: row; height: 920px; } /* Altura aumentada */
-            .learn-sidebar { width: 320px; display: flex; flex-direction: column; }
+            .learning-container { flex-direction: row; height: 920px; }
+            .learn-sidebar { width: 320px; display: flex; flex-direction: column; border-right: 1px solid #e2e8f0; }
             .learn-nav { flex-direction: column !important; overflow-y: auto; }
             .learn-item { width: 100%; margin-bottom: 5px; }
+            .mobile-content-slot { display: none; } /* Ocultar slots de acordeón en PC */
         }
 
         .learn-sidebar { background: var(--primary); }
@@ -103,11 +97,19 @@
         .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 10px 12px 10px 35px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
         
         .learn-nav { padding: 10px; display: flex; flex-direction: column; gap: 8px; }
-        .learn-item { padding: 14px 18px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; width: 100%; }
-        
+        .learn-item { padding: 14px 18px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; width: 100%; position: relative; }
         .learn-item.active { background: var(--ego-blue); color: white; }
         
+        /* Estilo para el contenido inyectado en móvil (acordeón) */
+        .mobile-content-slot { background: #f8fafc; overflow: hidden; }
+
         .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
+        
+        @media (max-width: 899px) {
+            .learn-main { display: none; } /* Ocultar panel derecho en móvil para usar el acordeón */
+            .learn-item.active::after { content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 15px; }
+        }
+
         .learn-header { background: white; padding: 25px; display: flex; flex-direction: column; border-bottom: 1px solid #e2e8f0; gap: 15px; }
         @media (min-width: 600px) { .learn-header { height: 90px; flex-direction: row; justify-content: space-between; align-items: center; } }
         
@@ -116,7 +118,7 @@
         .p-bar-bg { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
         .p-bar-fill { height: 100%; background: #2ecc71; width: 0%; transition: 0.5s; }
 
-        .learn-content { padding: 35px 35px 150px 35px; overflow-y: auto; flex: 1; }
+        .learn-content { padding: 35px; overflow-y: auto; flex: 1; }
         
         .section-intro { background: #eef2ff; padding: 25px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--ego-blue); }
         .section-intro p { margin: 0; font-size: 15px; color: var(--text-main); line-height: 1.7; }
@@ -311,36 +313,53 @@
         function initLearnMenu() {
             const menu = document.getElementById('learn-menu');
             menu.innerHTML = Object.keys(learnData).map(key => `
-                <button class="learn-item" id="lbtn-${key}" onclick="showLearnSection('${key}')">
-                    <i class="fa-solid ${learnData[key].icon}" style="width:25px"></i> ${learnData[key].title}
-                </button>
+                <div class="menu-group" id="group-${key}">
+                    <button class="learn-item" id="lbtn-${key}" onclick="showLearnSection('${key}')">
+                        <i class="fa-solid ${learnData[key].icon}" style="width:25px"></i> ${learnData[key].title}
+                    </button>
+                    <div class="mobile-content-slot" id="slot-${key}"></div>
+                </div>
             `).join('');
             showLearnSection('dashboard');
         }
 
         function showLearnSection(key) {
             const s = learnData[key];
+            const isMobile = window.innerWidth < 900;
+            
             document.querySelectorAll('.learn-item').forEach(b => b.classList.remove('active'));
             document.getElementById(`lbtn-${key}`).classList.add('active');
-            document.getElementById('learn-title').innerText = s.title;
             
-            let html = `
-                <div class="section-intro"><p>${s.desc}</p></div>
-                <div class="tutorial-grid">${s.links.map(link => `
-                <a href="${link.l}" target="_blank" class="tutorial-box ${visitedLinks.has(link.l) ? 'visited' : ''}" onclick="markVisit('${link.l}', '${key}')">
-                    <i class="fa-solid ${link.i}" style="font-size: 28px; color: var(--ego-blue); margin-bottom:15px; display:block;"></i>
-                    <div style="font-weight:600; font-size:15px; margin-bottom:8px;">${link.t}</div>
-                    <div style="font-size:12px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
-                </a>`).join('')}</div>
-                
-                <div class="wiki-footer">
-                    <h3>¿Necesitas más información?</h3>
-                    <p>Encuentra cientos de tutoriales detallados en nuestra base de conocimientos oficial.</p>
-                    <a href="https://wiki-es.egorealestate.com/" target="_blank" class="btn-wiki">
-                        <i class="fa-solid fa-book-open"></i> EXPLORAR WIKI COMPLETA
-                    </a>
+            let contentHtml = `
+                <div class="learn-content">
+                    <div class="section-intro"><p>${s.desc}</p></div>
+                    <div class="tutorial-grid">${s.links.map(link => `
+                    <a href="${link.l}" target="_blank" class="tutorial-box ${visitedLinks.has(link.l) ? 'visited' : ''}" onclick="markVisit('${link.l}', '${key}')">
+                        <i class="fa-solid ${link.i}" style="font-size: 28px; color: var(--ego-blue); margin-bottom:15px; display:block;"></i>
+                        <div style="font-weight:600; font-size:15px; margin-bottom:8px;">${link.t}</div>
+                        <div style="font-size:12px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
+                    </a>`).join('')}</div>
+                    
+                    <div class="wiki-footer">
+                        <h3>¿Necesitas más información?</h3>
+                        <p>Encuentra cientos de tutoriales detallados en nuestra base de conocimientos oficial.</p>
+                        <a href="https://wiki-es.egorealestate.com/" target="_blank" class="btn-wiki">
+                            <i class="fa-solid fa-book-open"></i> EXPLORAR WIKI COMPLETA
+                        </a>
+                    </div>
                 </div>`;
-            document.getElementById('learn-content').innerHTML = html;
+
+            if (isMobile) {
+                // Limpiar otros slots
+                document.querySelectorAll('.mobile-content-slot').forEach(slot => slot.innerHTML = '');
+                // Inyectar en el slot actual
+                document.getElementById(`slot-${key}`).innerHTML = contentHtml;
+                // Desplazamiento suave al abrir
+                document.getElementById(`group-${key}`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                document.getElementById('learn-title').innerText = s.title;
+                document.getElementById('learn-content').innerHTML = contentHtml;
+            }
         }
 
         function markVisit(url, key) {
@@ -353,8 +372,9 @@
 
         function filterSections() {
             const q = document.getElementById('learn-search').value.toLowerCase();
-            document.querySelectorAll('.learn-item').forEach(item => {
-                item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
+            document.querySelectorAll('.menu-group').forEach(group => {
+                const text = group.innerText.toLowerCase();
+                group.style.display = text.includes(q) ? 'block' : 'none';
             });
         }
     </script>
