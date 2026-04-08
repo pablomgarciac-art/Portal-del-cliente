@@ -23,7 +23,7 @@
         }
 
         * { box-sizing: border-box; }
-        body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); padding-bottom: 100px; /* Espacio para el robot */ }
+        body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
 
         #portal-page, #learning-page, #optimizer-page { width: 100%; max-width: 980px; }
         #learning-page, #optimizer-page { display: none; }
@@ -55,28 +55,37 @@
         .footer-link { color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: none; font-weight: 500; }
         .forgot-pw { color: var(--ego-blue); font-weight: 600; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 5px; }
 
-        /* --- OPTIMIZADOR ESTILO PAGINA --- */
         .opt-container { background: white; border-radius: 24px; padding: 50px; text-align: center; border: 2px dashed var(--ego-blue); }
 
-        /* --- FORMACIÓN --- */
-        .learning-container { display: flex; background: white; border-radius: 24px; overflow: hidden; height: 850px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        .learn-sidebar { width: 300px; background: var(--primary); display: flex; flex-direction: column; }
+        /* --- FORMACIÓN (RESPONSIVE) --- */
+        .learning-container { display: flex; flex-direction: column; background: white; border-radius: 24px; overflow: hidden; min-height: 600px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        
+        @media (min-width: 900px) {
+            .learning-container { flex-direction: row; height: 850px; }
+            .learn-sidebar { width: 300px; display: flex; flex-direction: column; }
+            .learn-nav { flex-direction: column; overflow-y: auto; }
+            .learn-item { width: 100%; margin-bottom: 5px; }
+        }
+
+        .learn-sidebar { background: var(--primary); }
         .sidebar-header { padding: 25px 20px 15px 20px; }
         .sidebar-title { color: white; font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 15px; }
         .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px 8px 35px; border-radius: 10px; color: white; font-size: 13px; outline: none; }
-        .learn-nav { padding: 0 10px 20px 10px; overflow-y: auto; flex: 1; }
-        .learn-item { width: 100%; padding: 12px 15px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; margin-bottom: 5px; text-transform: uppercase; transition: 0.2s; }
+        
+        .learn-nav { padding: 10px; display: flex; overflow-x: auto; gap: 8px; }
+        .learn-item { padding: 12px 15px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; }
         .learn-item.active { background: var(--ego-blue); color: white; }
         
-        .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; }
-        .learn-header { height: 80px; background: white; padding: 0 30px; display: flex; align-items: center; border-bottom: 1px solid #e2e8f0; justify-content: space-between; }
+        .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
+        .learn-header { background: white; padding: 20px; display: flex; flex-direction: column; border-bottom: 1px solid #e2e8f0; gap: 15px; }
+        @media (min-width: 600px) { .learn-header { height: 80px; flex-direction: row; justify-content: space-between; align-items: center; } }
         
-        .progress-box { width: 180px; }
+        .progress-box { width: 100%; max-width: 180px; }
         .progress-text { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); }
         .p-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
         .p-bar-fill { height: 100%; background: #2ecc71; width: 0%; transition: 0.5s; }
 
-        .learn-content { padding: 30px; overflow-y: auto; flex: 1; }
+        .learn-content { padding: 25px; overflow-y: auto; flex: 1; }
         .section-intro { background: #eef2ff; padding: 20px; border-radius: 15px; margin-bottom: 25px; border-left: 5px solid var(--ego-blue); }
         .section-intro p { margin: 0; font-size: 14px; color: var(--text-main); line-height: 1.6; }
 
@@ -91,140 +100,38 @@
         .btn-back { font-family: var(--font-main); background: none; border: 1.5px solid var(--primary); padding: 10px 25px; border-radius: 50px; cursor: pointer; margin-bottom: 25px; font-weight: 700; }
         .btn-back:hover { background: var(--primary); color: white; }
 
-        /* --- ESTILOS DEL ROBOT ASISTENTE --- */
-        .robot-assistant-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 1000;
-            display: flex;
-            align-items: flex-end;
-            gap: 15px;
+        /* --- ROBOT ASISTENTE CON BRILLO --- */
+        .robot-container { position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; align-items: flex-end; gap: 10px; }
+        .robot-head { 
+            width: 70px; height: 70px; 
+            background: url('https://i.imgur.com/UyQRWqR.png') center/cover; 
+            border-radius: 50%; 
+            border: 3px solid white; 
+            box-shadow: 0 0 15px rgba(93, 173, 226, 0.6), 0 5px 15px rgba(0,0,0,0.2); 
+            cursor: pointer; 
+            transition: 0.3s; 
+            flex-shrink: 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        .robot-head:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(93, 173, 226, 0.9); }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .robot-head-button {
-            width: 70px;
-            height: 70px;
-            background-image: url('https://i.imgur.com/UyQRWqR.png');
-            background-size: cover;
-            background-position: center;
-            border-radius: 50%;
-            border: 4px solid var(--white);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-        }
-
-        .robot-head-button:hover {
-            transform: scale(1.1) rotate(-5deg);
-        }
-
-        .robot-pulse {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: var(--ego-blue);
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: pulse-ring 2s infinite;
-            z-index: -1;
-            top: 0; left: 0;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.5); opacity: 0; }
-        }
-
-        /* Globos de diálogo */
-        .robot-dialog {
-            background: var(--white);
-            padding: 15px 20px;
-            border-radius: 18px 18px 2px 18px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            color: var(--text-main);
-            max-width: 280px;
-            position: relative;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: 0.3s;
-            pointer-events: none; /* No interrumpir clics */
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .robot-dialog.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Diálogo introductorio (aparece en hover) */
-        #robot-intro-dialog {
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .robot-assistant-container:hover #robot-intro-dialog {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Diálogo de consejos (aparece al hacer clic) */
-        #robot-tip-dialog {
-            border: 2px solid var(--ego-blue);
-            background: #eef2ff;
-        }
-
-        .tip-header {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: var(--ego-blue);
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .tip-content {
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1.5;
-        }
-
-        .tip-footer {
-            font-size: 10px;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-top: 5px;
-            text-align: right;
-        }
-
+        .robot-bubble { background: white; padding: 15px; border-radius: 15px 15px 2px 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 240px; font-size: 13px; border: 1px solid #eee; display: none; color: var(--text-main); line-height: 1.4; }
+        .robot-bubble.active { display: block; animation: popUp 0.3s ease-out; }
+        @keyframes popUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <div class="robot-assistant-container">
-        <div style="display: flex; flex-direction: column-reverse; align-items: flex-end; gap: 10px;">
-            
-            <div id="robot-intro-dialog" class="robot-dialog">
-                🤖 Soy tu asistente de eGO. Si haces clic en mi cabeza, te daré consejos sobre el CRM.
-            </div>
-
-            <div id="robot-tip-dialog" class="robot-dialog">
-                <div class="tip-header"><i class="fa-solid fa-lightbulb"></i> Consejo eGO del día</div>
-                <div id="tip-text-content" class="tip-content">Haz clic en mi cabeza para empezar...</div>
-                <div class="tip-footer">clic de nuevo para otro consejo</div>
-            </div>
-
+    <div class="robot-container">
+        <div id="robot-bubble" class="robot-bubble active">
+            🤖 Soy tu asistente de eGO. Si haces clic, te daré consejos sobre el CRM.
         </div>
-
-        <div class="robot-head-button" onclick="giveRandomTip()">
-            <div class="robot-pulse"></div>
-        </div>
+        <div class="robot-head" onclick="giveTip()"></div>
     </div>
 
     <div id="portal-page">
@@ -298,13 +205,11 @@
         <div class="opt-container">
             <div class="icon" style="font-size: 50px;">📸</div>
             <h2 style="color: var(--primary);">Optimizador de Imágenes</h2>
-            <p>Reduce el peso de tus fotografías antes de subirlas al CRM para que tu web cargue más rápido.</p>
-            
+            <p>Prepara tus fotos con el formato y resolución correcta para eGO CRM</p>
             <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 60px; border-radius: 20px; margin: 30px 0;">
                 <input type="file" multiple style="margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
-                <p style="font-size: 12px; color: var(--text-muted);">Suelte sus archivos aquí o haga clic para buscar.</p>
+                <p style="font-size: 12px; color: var(--text-muted);">Tus fotos se descargarán en un archivo zip optimizadas</p>
             </div>
-            <p style="font-size: 11px; color: #e74c3c;">* Recuerda que el límite recomendado por eGO es de 10MB por foto.</p>
         </div>
     </div>
 
@@ -335,44 +240,20 @@
     </div>
 
     <script>
-        // --- LÓGICA DEL ASISTENTE DE CONSEJOS ---
-        const crmTips = [
-            "¡Usa etiquetas! Segmentar tus contactos por etiquetas (ej. 'Inversor', 'Busca Alquiler') te permitirá hacer campañas de email marketing mucho más efectivas.",
-            "Antes de subir fotos pesadas de un inmueble, usa nuestro **Optimizador de Imágenes**. Tu web cargará más rápido y mejorarás el SEO.",
-            "No olvides registrar todas las interacciones en la ficha del contacto. Así, cualquier compañero sabrá en qué punto está la negociación.",
-            "Crea **Oportunidades** para cada cliente interesado. Te ayudará a visualizar tu embudo de ventas y a no perder ningún cierre.",
-            "Configura los **Smartlinks** en tus inmuebles. Podrás enviarlos por WhatsApp y saber cuándo el cliente ha visto la propiedad.",
-            "Sincroniza tu calendario de eGO con Google Calendar o Outlook. Así tendrás todas tus visitas y reuniones centralizadas en tu móvil.",
-            "Utiliza el **Dashboard**. Dedica 5 minutos al inicio del día para revisar tus tareas pendientes y los nuevos leads.",
-            "Si trabajas en equipo, define bien los permisos de usuario en Configuración para proteger la base de datos.",
-            "¿Sabías que puedes crear **Landing Pages** desde eGO para captar propietarios? Úsalas en tus campañas de Facebook o Google Ads.",
-            "Revisa las formaciones grabadas en la Academia. ¡Siempre hay trucos nuevos que aprender!"
+        const tips = [
+            "¡Usa etiquetas! Te ayudan a segmentar clientes por intereses.",
+            "Usa el optimizador de fotos para que tu web vuele 🚀",
+            "Sincroniza tu calendario para no perder ninguna visita.",
+            "Registra cada llamada en la ficha para tener historial.",
+            "Usa los Smartlinks para enviar inmuebles por WhatsApp."
         ];
 
-        let currentTipIndex = -1;
-
-        function giveRandomTip() {
-            const tipDialog = document.getElementById('robot-tip-dialog');
-            const introDialog = document.getElementById('robot-intro-dialog');
-            const tipText = document.getElementById('tip-text-content');
-
-            // Ocultar intro para siempre una vez se hace clic
-            introDialog.style.display = 'none';
-
-            let nextIndex;
-            // Asegurar que no se repita el mismo consejo dos veces seguidas
-            do {
-                nextIndex = Math.floor(Math.random() * crmTips.length);
-            } while (nextIndex === currentTipIndex);
-            
-            currentTipIndex = nextIndex;
-            tipText.innerHTML = crmTips[currentTipIndex];
-
-            // Mostrar el globo de consejo
-            tipDialog.classList.add('active');
+        function giveTip() {
+            const bubble = document.getElementById('robot-bubble');
+            bubble.innerHTML = "💡 <b>Consejo:</b> " + tips[Math.floor(Math.random() * tips.length)];
+            bubble.classList.add('active');
         }
 
-        // --- LÓGICA ORIGINAL DEL PORTAL ---
         const learnData = {
             dashboard: { 
                 title: "Dashboard", 
@@ -415,7 +296,7 @@
                 icon: "fa-calendar-check", 
                 links: [
                     { t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" },
-                    { t: "Sincronizar con Google/Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }
+                    { t: "Sincronizar con Google / Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }
                 ]
             },
             marketing: { 
@@ -447,14 +328,12 @@
         let visitedLinks = new Set();
         const totalItems = Object.values(learnData).reduce((a, c) => a + c.links.length, 0);
 
-        function showPage(pageId) {
+        function showPage(id) {
             document.getElementById('portal-page').style.display = 'none';
             document.getElementById('learning-page').style.display = 'none';
             document.getElementById('optimizer-page').style.display = 'none';
-            
-            document.getElementById(pageId).style.display = 'block';
-            
-            if(pageId === 'learning-page') initLearnMenu();
+            document.getElementById(id).style.display = 'block';
+            if(id === 'learning-page') initLearnMenu();
             window.scrollTo(0,0);
         }
 
@@ -466,13 +345,6 @@
                 </button>
             `).join('');
             showLearnSection('dashboard');
-        }
-
-        function filterSections() {
-            const q = document.getElementById('learn-search').value.toLowerCase();
-            document.querySelectorAll('.learn-item').forEach(item => {
-                item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
-            });
         }
 
         function showLearnSection(key) {
@@ -497,7 +369,6 @@
                         <i class="fa-solid fa-book-open"></i> EXPLORAR WIKI COMPLETA
                     </a>
                 </div>`;
-                
             document.getElementById('learn-content').innerHTML = html;
         }
 
@@ -507,6 +378,13 @@
             document.getElementById('learn-pfill').style.width = p + '%';
             document.getElementById('percent-text').innerText = p + '%';
             setTimeout(() => showLearnSection(key), 300);
+        }
+
+        function filterSections() {
+            const q = document.getElementById('learn-search').value.toLowerCase();
+            document.querySelectorAll('.learn-item').forEach(item => {
+                item.style.display = item.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
+            });
         }
     </script>
 </body>
