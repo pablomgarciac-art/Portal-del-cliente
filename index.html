@@ -11,7 +11,7 @@
     
     <style>
         :root {
-            --primary: #1a2b4c;
+            --primary: #323A46;
             --accent: #5dade2;
             --ego-blue: #007bff;
             --bg: #f0f4f8;
@@ -25,17 +25,29 @@
         * { box-sizing: border-box; }
         body { font-family: var(--font-main); background: var(--bg); margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; color: var(--text-main); }
 
-        #portal-page, #learning-page, #optimizer-page { width: 100%; max-width: 980px; }
+        /* Ajuste de tamaño para pantallas de ordenador */
+        #portal-page, #learning-page, #optimizer-page { 
+            width: 100%; 
+            max-width: 1200px; /* Aumentado de 980px a 1200px */
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 1200px) {
+            body { 
+                zoom: 1.05; /* Aumenta ligeramente el tamaño general en pantallas grandes */
+            }
+        }
+
         #learning-page, #optimizer-page { display: none; }
 
-        .main-header { background: var(--primary); border-radius: 24px; padding: 40px; text-align: center; color: white; margin-bottom: 35px; width: 100%; }
-        .logo-img { max-width: 200px; height: auto; margin-bottom: 15px; }
-        h1 { font-size: 26px; margin: 0; font-weight: 600; }
+        .main-header { background: var(--primary); border-radius: 24px; padding: 50px 40px; text-align: center; color: white; margin-bottom: 35px; width: 100%; }
+        .logo-img { max-width: 240px; height: auto; margin-bottom: 15px; } /* Logo un poco más grande */
+        h1 { font-size: 30px; margin: 0; font-weight: 600; }
 
-        .section-container { margin-bottom: 30px; width: 100%; }
-        .section-title { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 15px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .section-container { margin-bottom: 35px; width: 100%; }
+        .section-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 18px; border-bottom: 2px solid #cbd5e1; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
         
-        .grid { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+        .grid { display: grid; gap: 15px; grid-template-columns: repeat(2, 1fr); }
         @media (min-width: 768px) {
             .grid-5 { grid-template-columns: repeat(5, 1fr); }
             .grid-4 { grid-template-columns: repeat(4, 1fr); }
@@ -43,85 +55,85 @@
         }
 
         .card {
-            background: var(--white); padding: 20px 15px; border-radius: 18px; text-decoration: none; color: var(--primary);
+            background: var(--white); padding: 25px 15px; border-radius: 18px; text-decoration: none; color: var(--primary);
             box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.3s ease; border: 1px solid rgba(0,0,0,0.05);
-            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 110px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 130px;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .icon { font-size: 28px; margin-bottom: 10px; }
-        h3 { margin: 0; font-size: 13px; font-weight: 500; line-height: 1.3; }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .icon { font-size: 32px; margin-bottom: 12px; }
+        h3 { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
 
         .footer-buttons { margin-top: 40px; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 40px; }
-        .footer-link { color: var(--text-muted); font-size: 13px; cursor: pointer; text-decoration: none; font-weight: 500; }
-        .forgot-pw { color: var(--ego-blue); font-weight: 600; font-size: 13px; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+        .footer-link { color: var(--text-muted); font-size: 14px; cursor: pointer; text-decoration: none; font-weight: 500; }
+        .forgot-pw { color: var(--ego-blue); font-weight: 600; font-size: 14px; text-decoration: none; display: flex; align-items: center; gap: 5px; }
 
-        .opt-container { background: white; border-radius: 24px; padding: 50px; text-align: center; border: 2px dashed var(--ego-blue); }
+        .opt-container { background: white; border-radius: 24px; padding: 60px; text-align: center; border: 2px dashed var(--ego-blue); }
 
-        .learning-container { display: flex; flex-direction: column; background: white; border-radius: 24px; overflow: hidden; min-height: 600px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+        .learning-container { display: flex; flex-direction: column; background: white; border-radius: 24px; overflow: hidden; min-height: 700px; border: 1px solid #e2e8f0; box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         
         @media (min-width: 900px) {
             .learning-container { flex-direction: row; height: 850px; }
-            .learn-sidebar { width: 300px; display: flex; flex-direction: column; }
+            .learn-sidebar { width: 320px; display: flex; flex-direction: column; }
             .learn-nav { flex-direction: column; overflow-y: auto; }
             .learn-item { width: 100%; margin-bottom: 5px; }
         }
 
         .learn-sidebar { background: var(--primary); }
-        .sidebar-header { padding: 25px 20px 15px 20px; }
-        .sidebar-title { color: white; font-weight: 700; font-size: 13px; text-transform: uppercase; margin-bottom: 15px; }
-        .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 8px 12px 8px 35px; border-radius: 10px; color: white; font-size: 13px; outline: none; }
+        .sidebar-header { padding: 30px 20px 20px 20px; }
+        .sidebar-title { color: white; font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 15px; }
+        .search-input { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 10px 12px 10px 35px; border-radius: 10px; color: white; font-size: 14px; outline: none; }
         
         .learn-nav { padding: 10px; display: flex; overflow-x: auto; gap: 8px; }
-        .learn-item { padding: 12px 15px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 11px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; }
+        .learn-item { padding: 14px 18px; background: transparent; border: none; color: #94a3b8; text-align: left; font-size: 12px; font-weight: 600; cursor: pointer; border-radius: 8px; display: flex; align-items: center; text-transform: uppercase; white-space: nowrap; transition: 0.2s; }
         .learn-item.active { background: var(--ego-blue); color: white; }
         
         .learn-main { flex: 1; display: flex; flex-direction: column; background: #f8fafc; overflow: hidden; }
-        .learn-header { background: white; padding: 20px; display: flex; flex-direction: column; border-bottom: 1px solid #e2e8f0; gap: 15px; }
-        @media (min-width: 600px) { .learn-header { height: 80px; flex-direction: row; justify-content: space-between; align-items: center; } }
+        .learn-header { background: white; padding: 25px; display: flex; flex-direction: column; border-bottom: 1px solid #e2e8f0; gap: 15px; }
+        @media (min-width: 600px) { .learn-header { height: 90px; flex-direction: row; justify-content: space-between; align-items: center; } }
         
-        .progress-box { width: 100%; max-width: 180px; }
-        .progress-text { display: flex; justify-content: space-between; font-size: 10px; font-weight: 700; margin-bottom: 4px; color: var(--text-muted); }
-        .p-bar-bg { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+        .progress-box { width: 100%; max-width: 200px; }
+        .progress-text { display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; margin-bottom: 6px; color: var(--text-muted); }
+        .p-bar-bg { height: 10px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
         .p-bar-fill { height: 100%; background: #2ecc71; width: 0%; transition: 0.5s; }
 
-        .learn-content { padding: 25px; overflow-y: auto; flex: 1; }
-        .section-intro { background: #eef2ff; padding: 20px; border-radius: 15px; margin-bottom: 25px; border-left: 5px solid var(--ego-blue); }
-        .section-intro p { margin: 0; font-size: 14px; color: var(--text-main); line-height: 1.6; }
+        .learn-content { padding: 35px; overflow-y: auto; flex: 1; }
+        .section-intro { background: #eef2ff; padding: 25px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--ego-blue); }
+        .section-intro p { margin: 0; font-size: 15px; color: var(--text-main); line-height: 1.7; }
 
-        .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .tutorial-box { background: white; padding: 20px; border-radius: 12px; border: 1px solid #e2e8f0; text-decoration: none; color: var(--text-main); position: relative; transition: 0.2s; display: flex; flex-direction: column; }
-        .tutorial-box:hover { border-color: var(--ego-blue); transform: translateY(-3px); }
-        .tutorial-box.visited::after { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 12px; right: 12px; color: #10b981; }
+        .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .tutorial-box { background: white; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; text-decoration: none; color: var(--text-main); position: relative; transition: 0.2s; display: flex; flex-direction: column; min-height: 140px; }
+        .tutorial-box:hover { border-color: var(--ego-blue); transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.05); }
+        .tutorial-box.visited::after { content: "\f058"; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; top: 15px; right: 15px; color: #10b981; font-size: 18px; }
 
-        .wiki-footer { margin-top: 40px; padding: 30px; background: var(--primary); border-radius: 20px; color: white; text-align: center; }
-        .btn-wiki { display: inline-block; margin-top: 15px; background: var(--ego-blue); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; }
+        .wiki-footer { margin-top: 50px; padding: 40px; background: var(--primary); border-radius: 20px; color: white; text-align: center; }
+        .btn-wiki { display: inline-block; margin-top: 20px; background: var(--ego-blue); color: white; padding: 14px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 15px; }
         
-        .btn-back { font-family: var(--font-main); background: none; border: 1.5px solid var(--primary); padding: 10px 25px; border-radius: 50px; cursor: pointer; margin-bottom: 25px; font-weight: 700; }
+        .btn-back { font-family: var(--font-main); background: none; border: 2px solid var(--primary); padding: 12px 30px; border-radius: 50px; cursor: pointer; margin-bottom: 30px; font-weight: 700; font-size: 14px; }
         .btn-back:hover { background: var(--primary); color: white; }
 
-        /* --- ROBOT ASISTENTE CON BRILLO --- */
-        .robot-container { position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; align-items: flex-end; gap: 10px; }
+        /* --- ROBOT --- */
+        .robot-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; align-items: flex-end; gap: 15px; }
         .robot-head { 
-            width: 70px; height: 70px; 
+            width: 80px; height: 80px; 
             background: url('https://i.imgur.com/UyQRWqR.png') center/cover; 
             border-radius: 50%; 
-            border: 3px solid white; 
-            box-shadow: 0 0 15px rgba(93, 173, 226, 0.6), 0 5px 15px rgba(0,0,0,0.2); 
+            border: 4px solid white; 
+            box-shadow: 0 0 20px rgba(93, 173, 226, 0.6), 0 8px 20px rgba(0,0,0,0.2); 
             cursor: pointer; 
             transition: 0.3s; 
             flex-shrink: 0;
             animation: float 3s ease-in-out infinite;
         }
-        .robot-head:hover { transform: scale(1.1); box-shadow: 0 0 25px rgba(93, 173, 226, 0.9); }
+        .robot-head:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(93, 173, 226, 0.9); }
         
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-12px); }
         }
 
-        .robot-bubble { background: white; padding: 15px; border-radius: 15px 15px 2px 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); max-width: 240px; font-size: 13px; border: 1px solid #eee; display: none; color: var(--text-main); line-height: 1.4; }
+        .robot-bubble { background: white; padding: 18px; border-radius: 18px 18px 2px 18px; box-shadow: 0 8px 25px rgba(0,0,0,0.12); max-width: 260px; font-size: 14px; border: 1px solid #eee; display: none; color: var(--text-main); line-height: 1.5; }
         .robot-bubble.active { display: block; animation: popUp 0.3s ease-out; }
-        @keyframes popUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -167,8 +179,8 @@
             <div class="grid grid-2">
                 <div class="card" onclick="showPage('learning-page')" style="border: 2px solid var(--ego-blue); background: #eef2ff; cursor:pointer; grid-column: span 2;">
                     <div class="icon">🎓</div>
-                    <h3 style="font-weight: 700;">ACCEDER AL CENTRO DE FORMACIÓN POR SECCIONES</h3>
-                    <p style="font-size: 11px; margin-top: 5px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
+                    <h3 style="font-weight: 700; font-size: 16px;">ACCEDER AL CENTRO DE FORMACIÓN POR SECCIONES</h3>
+                    <p style="font-size: 12px; margin-top: 8px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
                 </div>
             </div>
         </div>
@@ -181,7 +193,7 @@
                     <h3>Contacto por Email</h3>
                 </a>
                 <a href="tel:+34910380590" class="card">
-                    <div class="icon" style="color: #1a2b4c;"><i class="fa-solid fa-phone"></i></div>
+                    <div class="icon" style="color: var(--primary);"><i class="fa-solid fa-phone"></i></div>
                     <h3>Contacto Telefónico</h3>
                 </a>
                 <a href="https://wa.me/34650585692" target="_blank" class="card">
@@ -202,12 +214,12 @@
     <div id="optimizer-page">
         <button class="btn-back" onclick="showPage('portal-page')">← Volver al Portal</button>
         <div class="opt-container">
-            <div class="icon" style="font-size: 50px;">📸</div>
-            <h2 style="color: var(--primary);">Optimizador de Imágenes</h2>
-            <p>Prepara tus fotos con el formato y resolución correcta para eGO CRM</p>
-            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 60px; border-radius: 20px; margin: 30px 0;">
+            <div class="icon" style="font-size: 60px;">📸</div>
+            <h2 style="color: var(--primary); font-size: 28px;">Optimizador de Imágenes</h2>
+            <p style="font-size: 16px;">Prepara tus fotos con el formato y resolución correcta para eGO CRM</p>
+            <div style="background: #f8fafc; border: 2px dashed #cbd5e1; padding: 80px; border-radius: 20px; margin: 30px 0;">
                 <input type="file" multiple style="margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
-                <p style="font-size: 12px; color: var(--text-muted);">Tus fotos se descargarán en un archivo zip optimizadas</p>
+                <p style="font-size: 14px; color: var(--text-muted);">Tus fotos se descargarán en un archivo zip optimizadas</p>
             </div>
         </div>
     </div>
@@ -219,7 +231,7 @@
                 <div class="sidebar-header">
                     <div class="sidebar-title">Por secciones</div>
                     <div style="position:relative">
-                        <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:10px; color:#94a3b8; font-size:12px;"></i>
+                        <i class="fa-solid fa-magnifying-glass" style="position:absolute; left:12px; top:13px; color:#94a3b8; font-size:13px;"></i>
                         <input type="text" id="learn-search" class="search-input" placeholder="Buscar sección..." onkeyup="filterSections()">
                     </div>
                 </div>
@@ -227,7 +239,7 @@
             </aside>
             <main class="learn-main">
                 <header class="learn-header">
-                    <div id="learn-title" style="font-weight: 700; color: var(--primary); font-size: 18px;">Formación</div>
+                    <div id="learn-title" style="font-weight: 700; color: var(--primary); font-size: 20px;">Formación</div>
                     <div class="progress-box">
                         <div class="progress-text"><span>PROGRESO</span> <span id="percent-text">0%</span></div>
                         <div class="p-bar-bg"><div class="p-bar-fill" id="learn-pfill"></div></div>
@@ -254,74 +266,14 @@
         }
 
         const learnData = {
-            dashboard: { 
-                title: "Dashboard", 
-                desc: "El Dashboard es tu centro de mando. Aquí verás de un vistazo el resumen de tu actividad, inmuebles recientes y próximas tareas para organizar tu día de forma eficiente.",
-                icon: "fa-chart-line", 
-                links: [{ t: "Utilizar el Dashboard", l: "https://wiki-es.egorealestate.com/software/dashboard/utilizar-el-dashboard", i: "fa-gauge-high" }] 
-            },
-            contactos: { 
-                title: "Contactos", 
-                desc: "Gestiona tu cartera de clientes de forma profesional. Aprende a segmentar por etiquetas, importar bases de datos y realizar un seguimiento impecable de cada interesado.",
-                icon: "fa-user-group", 
-                links: [
-                    { t: "Subir contactos manualmente", l: "https://wiki-es.egorealestate.com/software/contactos/subir-contactos-manualmente", i: "fa-user-plus" },
-                    { t: "Gestionar etiquetas", l: "https://wiki-es.egorealestate.com/software/contactos/gestion-de-etiquetas", i: "fa-tags" },
-                    { t: "Carpeta del propietario (PDF)", l: "https://wiki-es.egorealestate.com/software/contactos/carpeta-del-propietario", i: "fa-file-pdf" }
-                ]
-            },
-            inmuebles: { 
-                title: "Inmuebles", 
-                desc: "La pieza central de tu negocio. Aprende a subir fichas detalladas, gestionar fotos de calidad y utilizar herramientas para compartir tus propiedades de forma atractiva.",
-                icon: "fa-house-laptop", 
-                links: [
-                    { t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" },
-                    { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" },
-                    { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }
-                ]
-            },
-            oportunidades: { 
-                title: "Oportunidades", 
-                desc: "Controla tu embudo de ventas. Convierte interesados en cierres gestionando cada fase de la negociación y automatizando el cruce de demandas con inmuebles.",
-                icon: "fa-briefcase", 
-                links: [
-                    { t: "Crear nuevas oportunidades", l: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", i: "fa-lightbulb" },
-                    { t: "Gestión del Embudo", l: "https://wiki-es.egorealestate.com/software/oportunidades/embudo-de-ventas", i: "fa-filter" }
-                ]
-            },
-            tareas: { 
-                title: "Tareas y Calendario", 
-                desc: "No olvides ninguna cita. Organiza tu agenda sincronizada y programa recordatorios para llamadas, visitas y reuniones importantes.",
-                icon: "fa-calendar-check", 
-                links: [
-                    { t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" },
-                    { t: "Sincronizar con Google / Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }
-                ]
-            },
-            marketing: { 
-                title: "Campañas y Marketing", 
-                desc: "Llega más lejos con tus inmuebles. Crea boletines de noticias profesionales y páginas de aterrizaje (landings) diseñadas para captar nuevos leads automáticamente.",
-                icon: "fa-bullhorn", 
-                links: [
-                    { t: "Campañas de Email", l: "https://wiki-es.egorealestate.com/ego-crm-realestate/software/campanas", i: "fa-paper-plane" },
-                    { t: "Crear una Landing Page", l: "https://wiki-es.egorealestate.com/es/software/campanas/crear-una-landing-page", i: "fa-window-maximize" }
-                ]
-            },
-            facturacion: { 
-                title: "Facturación", 
-                desc: "Gestiona tus honorarios y gastos. Emite facturas legales, controla cobros pendientes y mantén tu contabilidad al día desde el propio CRM.",
-                icon: "fa-file-invoice-dollar", 
-                links: [
-                    { t: "Emitir facturas", l: "https://wiki-es.egorealestate.com/software/facturacion/emitir-facturas", i: "fa-file-invoice" },
-                    { t: "Configuración Veri*Factu", l: "https://wiki-es.egorealestate.com/software/facturacion/veri-factu", i: "fa-shield-halved" }
-                ]
-            },
-            configuracion: { 
-                title: "Configuración", 
-                desc: "Personaliza eGO a la medida de tu agencia. Define permisos de usuarios, configura tus datos fiscales y ajusta las preferencias de visualización del software.",
-                icon: "fa-gears", 
-                links: [{ t: "Configurar empresa", l: "https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa", i: "fa-building-gear" }] 
-            }
+            dashboard: { title: "Dashboard", desc: "El Dashboard es tu centro de mando. Aquí verás de un vistazo el resumen de tu actividad, inmuebles recientes y próximas tareas para organizar tu día de forma eficiente.", icon: "fa-chart-line", links: [{ t: "Utilizar el Dashboard", l: "https://wiki-es.egorealestate.com/software/dashboard/utilizar-el-dashboard", i: "fa-gauge-high" }] },
+            contactos: { title: "Contactos", desc: "Gestiona tu cartera de clientes de forma profesional. Aprende a segmentar por etiquetas, importar bases de datos y realizar un seguimiento impecable de cada interesado.", icon: "fa-user-group", links: [{ t: "Subir contactos manualmente", l: "https://wiki-es.egorealestate.com/software/contactos/subir-contactos-manualmente", i: "fa-user-plus" }, { t: "Gestionar etiquetas", l: "https://wiki-es.egorealestate.com/software/contactos/gestion-de-etiquetas", i: "fa-tags" }, { t: "Carpeta del propietario (PDF)", l: "https://wiki-es.egorealestate.com/software/contactos/carpeta-del-propietario", i: "fa-file-pdf" }] },
+            inmuebles: { title: "Inmuebles", desc: "La pieza central de tu negocio. Aprende a subir fichas detalladas, gestionar fotos de calidad y utilizar herramientas para compartir tus propiedades de forma atractiva.", icon: "fa-house-laptop", links: [{ t: "Subir inmuebles paso a paso", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/subir-inmuebles", i: "fa-cloud-arrow-up" }, { t: "Smartlinks de inmuebles", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/smartlinks", i: "fa-link" }, { t: "Marca de agua en fotos", l: "https://wiki-es.egorealestate.com/software/inmuebles/inmuebles/marca-de-agua-en-las-fotos", i: "fa-stamp" }] },
+            oportunidades: { title: "Oportunidades", desc: "Controla tu embudo de ventas. Convierte interesados en cierres gestionando cada fase de la negociación y automatizando el cruce de demandas con inmuebles.", icon: "fa-briefcase", links: [{ t: "Crear nuevas oportunidades", l: "https://wiki-es.egorealestate.com/software/oportunidades/crear-oportunidades", i: "fa-lightbulb" }, { t: "Gestión del Embudo", l: "https://wiki-es.egorealestate.com/software/oportunidades/embudo-de-ventas", i: "fa-filter" }] },
+            tareas: { title: "Tareas y Calendario", desc: "No olvides ninguna cita. Organiza tu agenda sincronizada y programa recordatorios para llamadas, visitas y reuniones importantes.", icon: "fa-calendar-check", links: [{ t: "Programar tareas", l: "https://wiki-es.egorealestate.com/software/tareas/programar-tareas", i: "fa-calendar-plus" }, { t: "Sincronizar con Google / Outlook", l: "https://wiki-es.egorealestate.com/es/software/configuraciones/sincronizar-calendarios", i: "fa-rotate" }] },
+            marketing: { title: "Campañas y Marketing", desc: "Llega más lejos con tus inmuebles. Crea boletines de noticias profesionales y páginas de aterrizaje (landings) diseñadas para captar nuevos leads automáticamente.", icon: "fa-bullhorn", links: [{ t: "Campañas de Email", l: "https://wiki-es.egorealestate.com/ego-crm-realestate/software/campanas", i: "fa-paper-plane" }, { t: "Crear una Landing Page", l: "https://wiki-es.egorealestate.com/es/software/campanas/crear-una-landing-page", i: "fa-window-maximize" }] },
+            facturacion: { title: "Facturación", desc: "Gestiona tus honorarios y gastos. Emite facturas legales, controla cobros pendientes y mantén tu contabilidad al día desde el propio CRM.", icon: "fa-file-invoice-dollar", links: [{ t: "Emitir facturas", l: "https://wiki-es.egorealestate.com/software/facturacion/emitir-facturas", i: "fa-file-invoice" }, { t: "Configuración Veri*Factu", l: "https://wiki-es.egorealestate.com/software/facturacion/veri-factu", i: "fa-shield-halved" }] },
+            configuracion: { title: "Configuración", desc: "Personaliza eGO a la medida de tu agencia. Define permisos de usuarios, configura tus datos fiscales y ajusta las preferencias de visualización del software.", icon: "fa-gears", links: [{ t: "Configurar empresa", l: "https://wiki-es.egorealestate.com/software/configuraciones/configuraciones-de-empresa", i: "fa-building-gear" }] }
         };
 
         let visitedLinks = new Set();
@@ -356,9 +308,9 @@
                 <div class="section-intro"><p>${s.desc}</p></div>
                 <div class="tutorial-grid">${s.links.map(link => `
                 <a href="${link.l}" target="_blank" class="tutorial-box ${visitedLinks.has(link.l) ? 'visited' : ''}" onclick="markVisit('${link.l}', '${key}')">
-                    <i class="fa-solid ${link.i}" style="font-size: 24px; color: var(--ego-blue); margin-bottom:12px; display:block;"></i>
-                    <div style="font-weight:600; font-size:13px; margin-bottom:5px;">${link.t}</div>
-                    <div style="font-size:11px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
+                    <i class="fa-solid ${link.i}" style="font-size: 28px; color: var(--ego-blue); margin-bottom:15px; display:block;"></i>
+                    <div style="font-weight:600; font-size:15px; margin-bottom:8px;">${link.t}</div>
+                    <div style="font-size:12px; color: var(--ego-blue); font-weight:600;">Ver tutorial →</div>
                 </a>`).join('')}</div>
                 
                 <div class="wiki-footer">
