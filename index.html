@@ -108,14 +108,12 @@
             .learn-main { display: none; }
             .learn-item.active::after { content: '\f078'; font-family: "Font Awesome 6 Free"; font-weight: 900; position: absolute; right: 15px; }
             
-            /* Contenido comprimido para móvil */
             .learn-content { padding: 20px !important; }
             .section-intro { padding: 15px !important; margin-bottom: 15px !important; }
             .section-intro p { font-size: 13px !important; }
             .tutorial-grid { gap: 10px !important; }
             .tutorial-box { padding: 15px !important; min-height: 60px !important; flex-direction: row !important; align-items: center !important; gap: 15px; }
             .tutorial-box i { margin-bottom: 0 !important; font-size: 18px !important; width: 25px; }
-            /* CORRECCIÓN AQUÍ: Color forzado y quitamos el display:none que lo borraba */
             .tutorial-box div { font-size: 13px !important; margin-bottom: 0 !important; color: var(--text-main) !important; display: block !important; }
             .wiki-footer { margin-top: 20px !important; padding: 20px !important; }
             .btn-wiki { padding: 10px 20px !important; font-size: 13px !important; }
@@ -145,6 +143,7 @@
         .btn-back { font-family: var(--font-main); background: none; border: 2px solid var(--primary); padding: 12px 30px; border-radius: 50px; cursor: pointer; margin-bottom: 30px; font-weight: 700; font-size: 14px; }
         .btn-back:hover { background: var(--primary); color: white; }
 
+        /* ROBOT STYLES */
         .robot-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; align-items: flex-end; gap: 15px; }
         .robot-head { 
             width: 80px; height: 80px; 
@@ -159,6 +158,12 @@
         }
         .robot-head:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(93, 173, 226, 0.9); }
         
+        /* AJUSTE ROBOT PC */
+        @media (min-width: 1024px) {
+            .robot-head { width: 110px; height: 110px; }
+            .robot-bubble { max-width: 350px !important; font-size: 16px !important; padding: 22px !important; }
+        }
+
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
@@ -213,7 +218,7 @@
                 <div class="card" onclick="showPage('learning-page')" style="border: 2px solid var(--ego-blue); background: #eef2ff; cursor:pointer; grid-column: span 2;">
                     <div class="icon">🎓</div>
                     <h3 style="font-weight: 700; font-size: 16px;">ACCEDER AL CENTRO DE FORMACIÓN POR SECCIONES</h3>
-                    <p style="font-size: 12px; margin-top: 8px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
+                    <p style="font-size: 15px; margin-top: 8px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
                 </div>
             </div>
         </div>
