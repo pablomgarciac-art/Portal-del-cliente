@@ -89,6 +89,8 @@
             .learn-nav { flex-direction: column !important; overflow-y: auto; }
             .learn-item { width: 100%; margin-bottom: 5px; }
             .mobile-content-slot { display: none; }
+            /* Ajuste PC para el texto de formación de la home */
+            .formacion-subtitle { font-size: 15px !important; }
         }
 
         .learn-sidebar { background: var(--primary); }
@@ -110,7 +112,7 @@
             
             .learn-content { padding: 20px !important; }
             .section-intro { padding: 15px !important; margin-bottom: 15px !important; }
-            .section-intro p { font-size: 13px !important; }
+            .section-intro p { font-size: 15px !important; } /* Un poco más grande en móvil también */
             .tutorial-grid { gap: 10px !important; }
             .tutorial-box { padding: 15px !important; min-height: 60px !important; flex-direction: row !important; align-items: center !important; gap: 15px; }
             .tutorial-box i { margin-bottom: 0 !important; font-size: 18px !important; width: 25px; }
@@ -130,7 +132,8 @@
         .learn-content { padding: 35px; overflow-y: auto; flex: 1; }
         
         .section-intro { background: #eef2ff; padding: 25px; border-radius: 15px; margin-bottom: 30px; border-left: 5px solid var(--ego-blue); }
-        .section-intro p { margin: 0; font-size: 15px; color: var(--text-main); line-height: 1.7; }
+        /* AJUSTE: Texto de descripción de sección más grande (Dashboard, Contactos...) */
+        .section-intro p { margin: 0; font-size: 17px; color: var(--text-main); line-height: 1.7; }
 
         .tutorial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .tutorial-box { background: white; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; text-decoration: none; color: var(--text-main); position: relative; transition: 0.2s; display: flex; flex-direction: column; min-height: 140px; }
@@ -143,7 +146,6 @@
         .btn-back { font-family: var(--font-main); background: none; border: 2px solid var(--primary); padding: 12px 30px; border-radius: 50px; cursor: pointer; margin-bottom: 30px; font-weight: 700; font-size: 14px; }
         .btn-back:hover { background: var(--primary); color: white; }
 
-        /* ROBOT STYLES */
         .robot-container { position: fixed; bottom: 30px; right: 30px; z-index: 2000; display: flex; align-items: flex-end; gap: 15px; }
         .robot-head { 
             width: 80px; height: 80px; 
@@ -158,7 +160,6 @@
         }
         .robot-head:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(93, 173, 226, 0.9); }
         
-        /* AJUSTE ROBOT PC */
         @media (min-width: 1024px) {
             .robot-head { width: 110px; height: 110px; }
             .robot-bubble { max-width: 350px !important; font-size: 16px !important; padding: 22px !important; }
@@ -218,7 +219,7 @@
                 <div class="card" onclick="showPage('learning-page')" style="border: 2px solid var(--ego-blue); background: #eef2ff; cursor:pointer; grid-column: span 2;">
                     <div class="icon">🎓</div>
                     <h3 style="font-weight: 700; font-size: 16px;">ACCEDER AL CENTRO DE FORMACIÓN POR SECCIONES</h3>
-                    <p style="font-size: 15px; margin-top: 8px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
+                    <p class="formacion-subtitle" style="font-size: 12px; margin-top: 8px; color: var(--text-muted);">Explora todos los módulos y aprende a tu ritmo.</p>
                 </div>
             </div>
         </div>
